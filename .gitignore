@@ -1,0 +1,11 @@
+# Compilados
+
+/bin/
+
+# Eclipse IDE
+.settings/
+.classpath
+.project
+
+# Visual Studio Code
+.vscode/
