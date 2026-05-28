@@ -1,6 +1,7 @@
 # Compilados
 
 /bin/
+/target/
 
 # Eclipse IDE
 .settings/
