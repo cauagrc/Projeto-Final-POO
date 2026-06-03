@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>dacc.poo</groupId>
+  <groupId>game.poo</groupId>
   <artifactId>projeto-poo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Projeto POO</name>
@@ -9,7 +9,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>21</maven.compiler.release>
-    <javafx.version>21</javafx.version>
+    <javafx.version>21.0.1</javafx.version>
   </properties>
 
   <dependencies>
@@ -43,7 +43,7 @@
         <version>0.0.8</version>
 
         <configuration>
-          <mainClass>dacc.poo.Main</mainClass>
+          <mainClass>game.poo.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>
