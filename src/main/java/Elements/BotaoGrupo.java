@@ -1,8 +1,6 @@
 package Elements;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
 import java.util.ArrayList;
 
@@ -12,12 +10,9 @@ public class BotaoGrupo extends  Button{
 	private Button botaoEntrar;
 	private ArrayList<Button> listaFases;
 	
-	public BotaoGrupo(String nome, String descricao, Label painel, Button botaoEntrar) {
-		super(nome); // nome do botao
-		setDescricao(descricao);
-		setPainel(painel);
-		setBotao(botaoEntrar);
-		listaFases = new ArrayList<Button>();
+	public BotaoGrupo() {
+		super();
+	    listaFases = new ArrayList<>();
 	}
 	
 	public void enviarDescricao() {
@@ -29,41 +24,24 @@ public class BotaoGrupo extends  Button{
 	}
 	
 	public void adicionarBotaodeFase(Button botaoDeFase) {
-		if (verificar(botaoDeFase)) throw new NullPointerException("Botao de Fase nao definido");
-		else {
-			listaFases.add(botaoDeFase);
-		}
-	}
-	
-	// Fazer as verificacoes
-	private boolean verificar(String texto) {
-		if (texto.trim().isEmpty() || texto.isBlank()) return true;
-		return false;
-	}
-	
-	private boolean verificar(Label painel) {
-		if (painel == null) return true;
-		return false;
-	}
-	
-	private boolean verificar(Button painel) {
-		if (painel == null) return true;
-		return false;
+		listaFases.add(botaoDeFase);
 	}
 	
 	// Fazer os Sets
-	private void setDescricao(String texto) {
-		if (verificar(texto)) throw new NullPointerException("Texto da Descricao Vazio");
-		else descricao = texto;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
-	private void setPainel(Label painel) {
-		if (verificar(painel)) throw new NullPointerException("label da Descricao nao Definido");
-		else this.painel = painel;
+	public void setPainel(Label painel) {
+		this.painel = painel;
 	}
 	
-	private void setBotao(Button botao) {
-		if (verificar(botao)) throw new NullPointerException("Botao Alvo nao Definido");
-		else this.botaoEntrar = botao;
+	public void setBotao(Button botao) {
+		this.botaoEntrar = botao;
+	}
+	
+	//Fazer os Sets
+	public String getDescricao() {
+	    return descricao;
 	}
 }
