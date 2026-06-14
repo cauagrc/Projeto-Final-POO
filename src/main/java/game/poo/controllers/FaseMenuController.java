@@ -8,12 +8,14 @@ import Elements.BotaoCena;
 import Elements.BotaoGrupo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
-public class MenuController implements Initializable {
+public class FaseMenuController implements Initializable {
 	private Scene proxCena; // Cena de destino do Usuario
 	private Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Caixa de Alerta para Erros e Mensagens de Aviso
 
@@ -22,23 +24,26 @@ public class MenuController implements Initializable {
 
 	// Botoes de Destino
 	@FXML
-	private BotaoGrupo grupo1;
+	private BotaoGrupo fase1;
 
 	@FXML
-	private BotaoGrupo grupo2;
+	private BotaoGrupo fase2;
 
 	@FXML
-	private BotaoGrupo grupo3;
+	private BotaoGrupo fase3;
+	
+	@FXML
+	private BotaoCena bEntrar;
 	
 	// Botao de Troca de Cena
 	@FXML
-	private BotaoCena bEntrar;
+	private BotaoCena bVoltar;
 	
 	// Metodo que altera a Label de descricao e define a Cena alvo
 	@FXML
 	private void enviarInfos(ActionEvent event) {
 
-		// Definindo descricao do grupo
+		// Definindo descricao da fase
 	    BotaoGrupo selecionado = (BotaoGrupo) event.getSource();
 
 	    descricao.setText(selecionado.getDescricao());
@@ -51,12 +56,11 @@ public class MenuController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		// Definindo Cena das fases de cada grupo
+		// Definindo cena de cada fase
 		try {
-			grupo1.setCena("/game/poo/fxml/Fases/grupoFase1.fxml");
-			grupo2.setCena("/game/poo/fxml/Fases/grupoFase1.fxml");
-			grupo3.setCena("/game/poo/fxml/Fases/grupoFase1.fxml");
+		fase1.setCena("/game/poo/fxml/loading.fxml");
+		fase2.setCena("/game/poo/fxml/loading.fxml");
+		fase3.setCena("/game/poo/fxml/loading.fxml");
 		}catch(IOException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText("Houve um erro ao Carregar as Cenas, Por Favor Reinicie");
@@ -66,12 +70,26 @@ public class MenuController implements Initializable {
 		// Chamada do metodo de troca de cena ao clicar
 		bEntrar.setOnAction(event -> {
 			try {
-			bEntrar.mudarPara(proxCena);
+				bEntrar.mudarPara(proxCena);
 			}catch(IllegalArgumentException e) {
 				alerta.setTitle("FALTA DE INFORMACAO");
-				alerta.setHeaderText("Por favor Selecione um Grupo");
+				alerta.setHeaderText("Por favor Selecione uma Fase");
 				alerta.showAndWait();
 			}
+		});
+		
+		bVoltar.setOnAction(event -> {
+			try {
+			FXMLLoader fxml = new FXMLLoader(getClass().getResource("/game/poo/fxml/menu.fxml"));
+			Parent cena = fxml.load();
+			Scene menu = new Scene(cena);
+			bVoltar.mudarPara(menu);
+			}catch(Exception e) {
+				alerta.setTitle("ERRO");
+				alerta.setHeaderText("Erro ao tentar Voltar, Por Favor Reinicie");
+				alerta.showAndWait();
+			}
+			
 		});
 	}
 

@@ -1,47 +1,38 @@
 package Elements;
 
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import java.util.ArrayList;
 
 public class BotaoGrupo extends  Button{
 	private String descricao;
-	private Label painel;
-	private Button botaoEntrar;
-	private ArrayList<Button> listaFases;
+	private Scene cena;
 	
 	public BotaoGrupo() {
 		super();
-	    listaFases = new ArrayList<>();
 	}
-	
-	public void enviarDescricao() {
-		painel.setText(descricao);
-	}
-	
-	private void enviarFases() {
-		// preciso do botao de entrar para saber pra onde enviar o array de fases
-	}
-	
-	public void adicionarBotaodeFase(Button botaoDeFase) {
-		listaFases.add(botaoDeFase);
-	}
-	
-	// Fazer os Sets
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 	
-	public void setPainel(Label painel) {
-		this.painel = painel;
-	}
-	
-	public void setBotao(Button botao) {
-		this.botaoEntrar = botao;
-	}
-	
-	//Fazer os Sets
 	public String getDescricao() {
 	    return descricao;
 	}
+	
+	public void setCena(String path) throws IOException{
+		FXMLLoader arquivo = new FXMLLoader(getClass().getResource(path));
+		
+		Parent cenaCarregada = arquivo.load();
+
+		cena = new Scene(cenaCarregada);
+	}
+	
+	public Scene getCena() {
+		return cena;
+	}
+	
 }
