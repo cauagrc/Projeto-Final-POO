@@ -22,7 +22,7 @@ public class BotaoCena extends Button{
         		System.err.println("Erro: Não foi possível encontrar a janela atual");
         	}
         } else {
-            System.err.println("Erro: Nova Cena está nula!");
+            throw new IllegalArgumentException("Cena esta Nula!");
         }
     }
 }
