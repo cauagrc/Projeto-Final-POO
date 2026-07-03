@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import Elements.BotaoGrupo?>
+<?import Elements.BotaoCena?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane fx:id="root" prefHeight="474.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.controllers.JogoController">
+	<VBox xmlns:fx="http://javafx.com/fxml" 
+	      alignment="CENTER" 
+	      spacing="10"
+	      style="-fx-background-color: lightblue; -fx-padding: 20;">
+	    
+	    <Label text="JANELA DO JOGO" style="-fx-font-size: 18; -fx-font-weight: bold;"/>   
+	</VBox>
+</AnchorPane>
