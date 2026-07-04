@@ -58,9 +58,9 @@ public class FaseMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// Definindo cena de cada fase
 		try {
-		fase1.setCena("/game/poo/fxml/loading.fxml");
-		fase2.setCena("/game/poo/fxml/loading.fxml");
-		fase3.setCena("/game/poo/fxml/loading.fxml");
+		fase1.setCena("/game/poo/fxml/faseModelo.fxml"); // Definir Fases
+		fase2.setCena("/game/poo/fxml/faseModelo.fxml"); // Definir Fases
+		fase3.setCena("/game/poo/fxml/faseModelo.fxml"); // Definir Fases
 		}catch(IOException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText("Houve um erro ao Carregar as Cenas, Por Favor Reinicie");
