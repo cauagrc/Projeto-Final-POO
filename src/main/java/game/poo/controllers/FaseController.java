@@ -22,34 +22,39 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class FaseController implements Initializable {
-	private Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Caixa de Alerta para Erros e Mensagens de Aviso
+public abstract class FaseController implements Initializable {	
+	protected Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Caixa de Alerta para Erros e Mensagens de Aviso
 
 	// Painel do Jogo
 	@FXML
-	private AnchorPane jogo;
+	protected AnchorPane jogo;
 	
 	// Label de Descricao da Fase
 	@FXML
-	private Label descricao; // Label de Texto
+	protected Label descricao; // Label de Texto
 
 	// Botao de Troca de Cena
 	@FXML
-	private BotaoCena bVoltar;
+	protected BotaoCena bVoltar;
 
 	// Botao de Rodar Codigo
 	@FXML
-	private Button bComecar;
+	protected Button bComecar;
 
 	// Local onde o usuario escreve o codigo
 	@FXML
-	private TextArea codigo;
+	protected TextArea codigo;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
+
+	}
+	
+	// Definir qual FXML da Representacao 3D
+	public void iniciarJogo(String fxmlJogo) {
 		try {
             // Carregar o FXML da janela acoplada
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/game/poo/fxml/jogoModelo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlJogo));
             Parent janelaAcoplada = loader.load();
             
             // Adicionar a tela ao Painel dentro da Janela da Fase
@@ -60,11 +65,18 @@ public class FaseController implements Initializable {
 			alerta.setHeaderText("Houve um erro ao Carregar o Jogo, Por Favor Reinicie");
 			alerta.showAndWait();
 		}
+	}
+	
+	// Definir pra qual grupo de Fases deve voltar
+	public void definirBotoes(String grupoFase) {
+		bComecar.setOnAction(event -> {
+			chamarInterpretador();
+		});
 		
 		// Metodo do Botao Voltar
 		bVoltar.setOnAction(event -> {
 			try {
-			FXMLLoader fxml = new FXMLLoader(getClass().getResource("/game/poo/fxml/Fases/grupoFase1.fxml"));
+			FXMLLoader fxml = new FXMLLoader(getClass().getResource(grupoFase));
 			Parent cena = fxml.load();
 			Scene menu = new Scene(cena);
 			bVoltar.mudarPara(menu);
@@ -76,5 +88,8 @@ public class FaseController implements Initializable {
 			
 		});
 	}
+	
+	public abstract void chamarInterpretador();
+	public abstract String getFxmlJogo();
 }
 
