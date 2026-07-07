@@ -15,29 +15,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
-public class FaseMenuController implements Initializable {
-	private Scene proxCena; // Cena de destino do Usuario
-	private Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Caixa de Alerta para Erros e Mensagens de Aviso
+public abstract class FaseMenuController implements Initializable {
+	protected Scene proxCena; // Cena de destino do Usuario
+	protected Alert alerta = new Alert(Alert.AlertType.INFORMATION); // Caixa de Alerta para Erros e Mensagens de Aviso
 
 	@FXML
-	private Label descricao; // Label de Texto
-
-	// Botoes de Destino
-	@FXML
-	private BotaoGrupo fase1;
-
-	@FXML
-	private BotaoGrupo fase2;
-
-	@FXML
-	private BotaoGrupo fase3;
+	protected Label descricao; // Label de Texto
 	
 	@FXML
-	private BotaoCena bEntrar;
+	protected BotaoCena bEntrar;
 	
 	// Botao de Troca de Cena
 	@FXML
-	private BotaoCena bVoltar;
+	protected BotaoCena bVoltar;
 	
 	// Metodo que altera a Label de descricao e define a Cena alvo
 	@FXML
@@ -56,17 +46,21 @@ public class FaseMenuController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+	}
+	
+	protected void definirFase(BotaoGrupo fase, String fxmlFase) {
 		// Definindo cena de cada fase
 		try {
-		fase1.setCena("/game/poo/fxml/faseModelo.fxml"); // Definir Fases
-		fase2.setCena("/game/poo/fxml/faseModelo.fxml"); // Definir Fases
-		fase3.setCena("/game/poo/fxml/faseModelo.fxml"); // Definir Fases
+		fase.setCena(fxmlFase); // Definir Fases
 		}catch(IOException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText("Houve um erro ao Carregar as Cenas, Por Favor Reinicie");
 			alerta.showAndWait();
 		}
 		
+	}
+	protected void definirBotoes() {
 		// Chamada do metodo de troca de cena ao clicar
 		bEntrar.setOnAction(event -> {
 			try {

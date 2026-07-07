@@ -29,6 +29,9 @@ public class MenuController implements Initializable {
 
 	@FXML
 	private BotaoGrupo grupo3;
+
+	@FXML
+	private BotaoGrupo grupo4;
 	
 	// Botao de Troca de Cena
 	@FXML
@@ -55,8 +58,9 @@ public class MenuController implements Initializable {
 		// Definindo Cena das fases de cada grupo
 		try {
 			grupo1.setCena("/game/poo/fxml/Fases/grupoFase1.fxml");
-			grupo2.setCena("/game/poo/fxml/Fases/grupoFase1.fxml");
-			grupo3.setCena("/game/poo/fxml/Fases/grupoFase1.fxml");
+			grupo2.setCena("/game/poo/fxml/Fases/grupoFase2.fxml");
+			grupo3.setCena("/game/poo/fxml/Fases/grupoFase3.fxml");
+			grupo4.setCena("/game/poo/fxml/Fases/grupoFase4.fxml");
 		}catch(IOException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText("Houve um erro ao Carregar as Cenas, Por Favor Reinicie");
