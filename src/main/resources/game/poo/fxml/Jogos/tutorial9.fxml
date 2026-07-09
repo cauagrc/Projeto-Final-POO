@@ -29,7 +29,7 @@
     
     <rowConstraints>
         <RowConstraints percentHeight="8"/>
-        <RowConstraints percentHeight="24"/>
+        <RowConstraints percentHeight="12"/>
         <RowConstraints percentHeight="68"/>
         <RowConstraints percentHeight="12"/>
     </rowConstraints>
@@ -46,7 +46,7 @@
         <!-- Descricao da Fase -->
         <Label fx:id="descricao" 
                wrapText="true" 
-               text="" 
+               text="Selecione um grupo." 
                style="-fx-font-size: 14px; -fx-background-color: #e8e8e8; -fx-padding: 8;"
                GridPane.columnIndex="0" 
                GridPane.rowIndex="1"
@@ -60,7 +60,7 @@
                     GridPane.columnIndex="0" 
                     GridPane.rowIndex="2"
                     GridPane.halignment="LEFT"
-                    GridPane.valignment="BOTTOM"
+                    GridPane.valignment="TOP"
                     maxWidth="Infinity"
                     maxHeight="Infinity"/>
         

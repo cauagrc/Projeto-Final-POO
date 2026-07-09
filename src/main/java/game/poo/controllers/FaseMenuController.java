@@ -40,8 +40,6 @@ public abstract class FaseMenuController implements Initializable {
 	    
 	    // Definindo Cena alvo
 	    proxCena = selecionado.getCena();
-	    
-	    System.out.println(proxCena);
 	}
 	
 	@Override
