@@ -1,9 +1,21 @@
 package Elements;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Interpretador {
+	static HashMap<String, Integer> variaveisInt = new HashMap<String, Integer>();
+	static HashMap<String, Double> variaveisFloat = new HashMap<String, Double>();
+	static HashMap<String, Boolean> variaveisBool = new HashMap<String, Boolean>();
+	static HashMap<String, Character> variaveisChar = new HashMap<String, Character>();
+
+	static final String[] palavras_reservadas = {"int", "float", "double", "char", "void", "if", "else", "while", "for", "return",
+	        "switch", "case", "break", "continue", "do", "default", "struct", "typedef", "const", "static", "sizeof"};
+
+	
 	// Verificacao via Regex se existe uma funcao main() em qualquer lugar do codigo
 	public static int verificarMain(String codigo) throws IllegalArgumentException {
 		Pattern pattern = Pattern.compile("int\\s+main\\s*\\(\\s*\\)\\s*\\{[\\s\\S]*?\\}\\s*");
@@ -26,21 +38,356 @@ public abstract class Interpretador {
 		if (abreChave > fechaChave) throw new IllegalArgumentException("Foram Detectados Chaves `{` que nao tem `}`");
 		if (abreChave < fechaChave) throw new IllegalArgumentException("Foram Detectados Chaves `}` em excesso");
 	}
-	
-	// Verificar onde Comeca a Area do Main()
+	// Verificar onde Comeca a {
 	public static boolean verificarAbertura(String linha){
+		
 		Pattern pattern = Pattern.compile("\\{");
 		Matcher matcher = pattern.matcher(linha);
 		if (matcher.find()) return true;
 		return false;
 	}
-	
+	// Verificar onde Termina a }
 	public static boolean verificarFechamento(String linha){
 		Pattern pattern = Pattern.compile("\\}");
 		Matcher matcher = pattern.matcher(linha);
 		if (matcher.find()) return true;
 		return false;
 	}
+	// Limpar HashMap
+	public static void limparVariaveis() {
+		variaveisInt = new HashMap<String, Integer>();
+		variaveisFloat = new HashMap<String, Double>();
+		variaveisBool = new HashMap<String, Boolean>();
+		variaveisChar = new HashMap<String, Character>();
+		
+	}
+	
+	//
+	public static int verificarTipo(String tipo) {
+		switch(tipo) {
+			case "int":
+				return 1;
+			case "float":
+				return 2;
+			case "char":
+				return 3;
+			case "bool":
+				return 4;
+			default:
+				return 0;
+		}
+	}
+
+    public static boolean verificarNome(String nome) {
+
+        if (!nome.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
+            return false;
+        }
+
+        for (String palavra : palavras_reservadas) {
+        	if (palavra.equals(nome)) return false;
+        }
+        
+        return true;
+    }
+	
+	private static double numero(String s) {
+		try {
+		    return Double.parseDouble(s);
+		} catch (NumberFormatException e) {
+		    throw new IllegalArgumentException("Número inválido: " + s);
+		}
+	}
+
+	public static double calcular(ArrayList<String> lista) throws ArithmeticException, IllegalArgumentException{
+		// Primeiro resolve *, / e %
+        for (int i = 1; i < lista.size() - 1;) {
+
+            String op = lista.get(i);
+
+            if (op.equals("*") || op.equals("/") || op.equals("%")) {
+
+                double a = numero(lista.get(i - 1));
+                double b = numero(lista.get(i + 1));
+
+                double resultado;
+
+                switch (op) {
+                    case "*":
+                        resultado = a * b;
+                        break;
+
+                    case "/":
+                        if (b == 0)
+                            throw new ArithmeticException("Divisão por zero!");
+                        resultado = a / b;
+                        break;
+
+                    case "%":
+                        resultado = a % b;
+                        break;
+
+                    default:
+                        throw new IllegalArgumentException("Operador Invalido!");
+                }
+
+                lista.set(i - 1, String.valueOf(resultado));
+                lista.remove(i);     // operador
+                lista.remove(i);     // segundo número
+
+            } else {
+                i += 2;
+            }
+        }
+
+        // Depois resolve + e -
+        double resultado = numero(lista.get(0));
+
+        for (int i = 1; i < lista.size(); i += 2) {
+
+            String op = lista.get(i);
+            double valor = numero(lista.get(i + 1));
+
+            switch (op) {
+                case "+":
+                    resultado += valor;
+                    break;
+
+                case "-":
+                    resultado -= valor;
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("Operador inválido: " + op);
+            }
+        }
+
+        return resultado;
+	}
+	
+	// Calcula 1 Expressao Logica
+	public static boolean calcularLogica(String operador, double a, double b) {
+
+	    switch (operador) {
+
+	        case "==":
+	            return a == b;
+
+	        case "!=":
+	            return a != b;
+
+	        case ">":
+	            return a > b;
+
+	        case "<":
+	            return a < b;
+
+	        case ">=":
+	            return a >= b;
+
+	        case "<=":
+	            return a <= b;
+
+	        default:
+	            throw new IllegalArgumentException("Operador lógico inválido: " + operador);
+	    }
+	}
+	
+	public static boolean calcularExpressaoLogica(List<String> tokens) {
+
+	    // Resolve comparações
+	    for (int i = 1; i < tokens.size() - 1;) {
+
+	        String op = tokens.get(i);
+
+	        if (op.matches("==|!=|>=|<=|>|<")) {
+
+	            double a = Double.parseDouble(tokens.get(i - 1));
+	            double b = Double.parseDouble(tokens.get(i + 1));
+
+	            boolean r = calcularLogica(op, a, b);
+
+	            tokens.set(i - 1, String.valueOf(r));
+	            tokens.remove(i);
+	            tokens.remove(i);
+
+	        } else {
+	            i += 2;
+	        }
+	    }
+
+	    // Resolve &&
+	    for (int i = 1; i < tokens.size() - 1;) {
+
+	        if (tokens.get(i).equals("&&")) {
+
+	            boolean a = Boolean.parseBoolean(tokens.get(i - 1));
+	            boolean b = Boolean.parseBoolean(tokens.get(i + 1));
+
+	            tokens.set(i - 1, String.valueOf(a && b));
+	            tokens.remove(i);
+	            tokens.remove(i);
+
+	        } else {
+	            i += 2;
+	        }
+	    }
+
+	    // Resolve ||
+	    for (int i = 1; i < tokens.size() - 1;) {
+
+	        if (tokens.get(i).equals("||")) {
+
+	            boolean a = Boolean.parseBoolean(tokens.get(i - 1));
+	            boolean b = Boolean.parseBoolean(tokens.get(i + 1));
+
+	            tokens.set(i - 1, String.valueOf(a || b));
+	            tokens.remove(i);
+	            tokens.remove(i);
+
+	        } else {
+	            i += 2;
+	        }
+	    }
+
+	    return Boolean.parseBoolean(tokens.get(0));
+	}
+	
+	public static ArrayList<String> substituirVariavel(ArrayList<String> elementos) throws IllegalArgumentException {
+		for (int i = 0; i < elementos.size(); i++) {
+
+	        // Ignora operadores
+	        if (elementos.get(i).matches("\\+|-|\\*|/|%|==|!=|>=|<=|>|<|&&|\\|\\||!|=")) continue;
+
+	        // É um char?
+	        if (elementos.get(i).matches("'[^']'")) continue;
+
+	        // Número inteiro
+	        if (elementos.get(i).matches("-?\\d+")) continue;
+
+	        // Número decimal
+	        if (elementos.get(i).matches("-?\\d+\\.\\d+")) continue;
+	        
+	        // Entao eh Variavel
+	        if(variaveisInt.get(elementos.get(i)) != null) {
+	        	elementos.set(i, "" + variaveisInt.get(elementos.get(i)));
+	        	continue;
+	        }
+	        if(variaveisFloat.get(elementos.get(i)) != null) {
+	        	elementos.set(i, "" + variaveisFloat.get(elementos.get(i)));
+	        	continue;
+	        }
+	        if(variaveisChar.get(elementos.get(i)) != null) {
+	        	elementos.set(i, "" + variaveisChar.get(elementos.get(i)));
+	        	continue;
+	        }
+	        if(variaveisBool.get(elementos.get(i)) != null) {
+	        	elementos.set(i, "" + variaveisBool.get(elementos.get(i)));
+	        	continue;
+	        }
+	        
+	        throw new IllegalArgumentException("Existe um elemento nao declarado na Operacao!");
+	    }
+		
+        return elementos;
+	}
+	
+	// Associa uma variavel Int ao seu valor
+	public static void adicionarVariavelInt(String linha) throws IllegalArgumentException{
+		String[] elementos = linha.split(linha);
+		
+		if (elementos.length == 0) return;
+		if (elementos.length < 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+		
+		
+		if (verificarTipo(elementos[0]) != 1) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+		
+		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+		
+		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+		
+		ArrayList<String> lista = new ArrayList<>();
+		for (int i = 3; i < elementos.length - 1; i++) {
+			lista.add(elementos[i]);
+		}   			
+		
+		lista = substituirVariavel(lista);
+		
+		double resultado = calcular(lista);
+		
+		if (resultado == (int) resultado) {
+			variaveisInt.put(elementos[1], (int) resultado);
+		}else throw new  IllegalArgumentException("O valor inserido nao eh Compativel com o Tipo Inteiro!");
+	}
+	
+	// Associa uma variavel Float ao seu valor
+	public static void adicionarVariavelFloat(String linha) throws IllegalArgumentException{
+		String[] elementos = linha.split(linha);
+		
+		if (elementos.length == 0) return;
+		if (elementos.length < 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+		
+		
+		if (verificarTipo(elementos[0]) != 2) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+		
+		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+		
+		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+		
+		ArrayList<String> lista = new ArrayList<>();
+		for (int i = 3; i < elementos.length - 1; i++) {
+			lista.add(elementos[i]);
+		}   			
+		
+		lista = substituirVariavel(lista);
+		
+		double resultado = calcular(lista);
+		
+		variaveisFloat.put(elementos[1], resultado);
+	}
+	
+	// Associa uma variavel Char ao seu valor
+		public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
+			String[] elementos = linha.split(linha);
+			
+			if (elementos.length == 0) return;
+			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+			
+			
+			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+			
+			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+			
+			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+			
+			if (!elementos[3].matches("'[^']'")) throw new IllegalArgumentException("O tipo Char nao Aceita esse formato");
+		    
+			variaveisChar.put(elementos[1], elementos[3].charAt(1));
+		}
+		
+		public static void adicionarVariavelBoolean(String linha) throws IllegalArgumentException{
+			String[] elementos = linha.split(linha);
+			
+			if (elementos.length == 0) return;
+			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+			
+			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+			
+			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+			
+			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+			
+			ArrayList<String> lista = new ArrayList<>();
+			for (int i = 3; i < elementos.length - 1; i++) {
+				lista.add(elementos[i]);
+			}   			
+			
+			lista = substituirVariavel(lista);
+			
+			boolean resultado = calcularExpressaoLogica(lista);
+			
+			variaveisChar.put(elementos[1], elementos[3].charAt(1));
+		}
 	
 	// Operaccao Solo ++ e -- e !
 	
@@ -48,8 +395,7 @@ public abstract class Interpretador {
 		if (verificarOperador(operador) == 0 || verificarOperador(operador) == 1) throw new IllegalArgumentException("Em uma das suas operacoes voce usou: " + operador + "\nNao eh um operador Valido!");
 		
 		if (operador == "+" || operador == "-" || operador == "/" || operador == "*" || operador == "%" || 
-				operador == "+=" || operador == "-=" || operador == "/=" || operador == "*=" || operador == ">" ||
-				operador == "<"  || operador == ">="  || operador == "<=") {
+				operador == ">" || operador == "<"  || operador == ">="  || operador == "<=") {
 			try {
 				int numero = Integer.valueOf(elemento1);
 				
@@ -72,7 +418,7 @@ public abstract class Interpretador {
 				}
 			}
 		}
-		else if(operador == "=") {
+		else if(operador == "=" || operador == "+=" || operador == "-=" || operador == "/=" || operador == "*=" ) {
 			// Verifica o Primeiro Elemento
 			try {
 				int numero = Integer.valueOf(elemento1);
