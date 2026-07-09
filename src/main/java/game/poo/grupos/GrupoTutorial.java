@@ -53,15 +53,7 @@ public class GrupoTutorial extends FaseMenuController {
 	public void initialize(URL location, ResourceBundle resources) {
 		definirBotoes();
 		definirFase(fase1, "/game/poo/fxml/Jogos/tutorial1.fxml");
-		definirFase(fase2, "/game/poo/fxml/Jogos/tutorial2.fxml");
-		definirFase(fase3, "/game/poo/fxml/Jogos/tutorial10.fxml");
-		definirFase(fase4, "/game/poo/fxml/Jogos/tutorial3.fxml");
-		definirFase(fase5, "/game/poo/fxml/Jogos/tutorial4.fxml");
-		definirFase(fase6, "/game/poo/fxml/Jogos/tutorial5.fxml");
-		definirFase(fase7, "/game/poo/fxml/Jogos/tutorial6.fxml");
-		definirFase(fase8, "/game/poo/fxml/Jogos/tutorial7.fxml");
-		definirFase(fase9, "/game/poo/fxml/Jogos/tutorial8.fxml");
-		definirFase(fase10, "/game/poo/fxml/Jogos/tutorial9.fxml");		
+		definirFase(fase2, "/game/poo/fxml/Jogos/tutorial2.fxml");		
 	}
 
 }

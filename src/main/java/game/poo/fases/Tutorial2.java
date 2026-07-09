@@ -25,7 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Tutorial1 extends FaseController{
+public class Tutorial2 extends FaseController{
 	@FXML
 	Label descricao;
 	
@@ -33,14 +33,14 @@ public class Tutorial1 extends FaseController{
 	public void initialize(URL location, ResourceBundle resources) {	
 		iniciarJogo(getFxmlJogo());
 		definirBotoes("/game/poo/fxml/Fases/grupoFase1.fxml");
-		descricao.setText("Neste jogo, Nos queremos te ensiar como a linguagem C funciona de uma maneira divertida. Preparamos alguns desafios e tutoriais que vão ensinar os principais conceitos da linguagem."
-				+ ""
-				+ "\n\nPara começar, você precisa conhecer a Função Principal (main). Ela é responsável por iniciar a execução dos comandos que o seu código irá realizar.  "
-				+ "\n\nSempre que você criar um programa em C, a função principal deverá estar presente, pois é por ela que o computador saberá onde começar a executar suas instruções. "
-				+ "\n\nVamos com calma! No quadro ao lado, escreva a estrutura da Função Principal:"
-				+ "\n\nint main() { "
-				+ "\n"
-				+ "\n}");
+		descricao.setText("Você deve ter notado que na última fase não aconteceu nada, correto? Isso aconteceu porque ainda não escrevemos nenhuma instrução para o programa executar. Agora vamos mudar isso aprendendo um dos conceitos mais importantes da programação: as variáveis!"
+				+ "\nVariáveis são espaços utilizados pelo programa para armazenar informações. Elas podem guardar diferentes tipos de dados, como números inteiros (int), números decimais (float), letras (char), entre outros."
+				+ "\nToda variável possui um nome, e é através dele que podemos acessar ou modificar o valor que ela armazena sempre que precisarmos. Vamos começar com números e criar uma variável que armazenará um valor inteiro!"
+				+ "\nPara isso, siga esta estrutura:"
+				+ "\n\nint numero = 10;"
+				+ "\n\nNesse exemplo, criamos uma variável chamada numero e armazenamos o valor 10 dentro dela."
+				+ "\nVocê pode escolher diferentes nomes para suas variáveis, mas lembre-se que o nome deve seguir algumas regras da linguagem C (logo mais explicaremos)."
+				+ "\nAgora tente criar sua primeira variável dentro das chaves {} da função principal!");
 	}
 	
 	@Override
@@ -48,14 +48,15 @@ public class Tutorial1 extends FaseController{
 		String cod = codigo.getText();
 		
 		try {
-			int linhaMain = 0; // Linha que Abre o Main {
+			int linhaInicio = 0; // Linha que Abre o Main {
 			int linhaFinal = 0; // Linha que Termina o Main }
+			Interpretador.limparVariaveis();
 			
 			String[] linhas = cod.split("\\R");
 				
 			// Verificando se Existe o Main e apenas 1 unico Main
 			if (Interpretador.verificarMain(cod) == 1) throw new IllegalArgumentException("A sua Funcao Principal nao foi Encontrada ou Esta Mal Declarada!");
-			else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
+			//else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
 			
 			// Verifica se a Quantidade de {} esta correta
 			Interpretador.verificarChaves(linhas);
@@ -63,12 +64,13 @@ public class Tutorial1 extends FaseController{
 			// Contando onde comeca o Main()
 			for(String linha : linhas) {
 				if (Interpretador.verificarAbertura(linha)) break; 
-				linhaMain++;
+				linhaInicio++;
 			}
 				
 			// Marca onde fica a linha do } do Main
 			if (Interpretador.verificarFechamento(linhas[linhas.length - 1])) linhaFinal = linhas.length - 1;
-
+			
+			Interpretador.adicionarVariavelInt(linhas[linhaInicio]);
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText(e.getMessage());

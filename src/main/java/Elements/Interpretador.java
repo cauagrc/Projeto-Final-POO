@@ -347,47 +347,47 @@ public abstract class Interpretador {
 	}
 	
 	// Associa uma variavel Char ao seu valor
-		public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
-			String[] elementos = linha.split(linha);
-			
-			if (elementos.length == 0) return;
-			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
-			
-			
-			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
-			
-			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
-			
-			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-			
-			if (!elementos[3].matches("'[^']'")) throw new IllegalArgumentException("O tipo Char nao Aceita esse formato");
-		    
-			variaveisChar.put(elementos[1], elementos[3].charAt(1));
-		}
+	public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
+		String[] elementos = linha.split(linha);
 		
-		public static void adicionarVariavelBoolean(String linha) throws IllegalArgumentException{
-			String[] elementos = linha.split(linha);
-			
-			if (elementos.length == 0) return;
-			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
-			
-			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
-			
-			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
-			
-			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-			
-			ArrayList<String> lista = new ArrayList<>();
-			for (int i = 3; i < elementos.length - 1; i++) {
-				lista.add(elementos[i]);
-			}   			
-			
-			lista = substituirVariavel(lista);
-			
-			boolean resultado = calcularExpressaoLogica(lista);
-			
-			variaveisChar.put(elementos[1], elementos[3].charAt(1));
-		}
+		if (elementos.length == 0) return;
+		if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+		
+		
+		if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+		
+		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+		
+		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+		
+		if (!elementos[3].matches("'[^']'")) throw new IllegalArgumentException("O tipo Char nao Aceita esse formato");
+	    
+		variaveisChar.put(elementos[1], elementos[3].charAt(1));
+	}
+	
+	public static void adicionarVariavelBoolean(String linha) throws IllegalArgumentException{
+		String[] elementos = linha.split(linha);
+		
+		if (elementos.length == 0) return;
+		if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+		
+		if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+		
+		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+		
+		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+		
+		ArrayList<String> lista = new ArrayList<>();
+		for (int i = 3; i < elementos.length - 1; i++) {
+			lista.add(elementos[i]);
+		}   			
+		
+		lista = substituirVariavel(lista);
+		
+		boolean resultado = calcularExpressaoLogica(lista);
+		
+		variaveisChar.put(elementos[1], elementos[3].charAt(1));
+	}
 	
 	// Operaccao Solo ++ e -- e !
 	

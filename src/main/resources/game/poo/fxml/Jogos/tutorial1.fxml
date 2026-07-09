@@ -29,7 +29,7 @@
     
     <rowConstraints>
         <RowConstraints percentHeight="8"/>
-        <RowConstraints percentHeight="24"/>
+        <RowConstraints percentHeight="36"/>
         <RowConstraints percentHeight="68"/>
         <RowConstraints percentHeight="12"/>
     </rowConstraints>
@@ -65,17 +65,30 @@
                     maxHeight="Infinity"/>
         
         <!-- Area do código -->
-        <TextArea fx:id="codigo" 
-                  promptText="Digite seu código aqui..."
-                  style="-fx-font-size: 14px; -fx-font-family: 'Consolas', 'Monaco', 'Courier New', monospace; -fx-background-color: #1e1e1e; -fx-text-fill: #d4d4d4; -fx-padding: 10; -fx-border-color: #333; -fx-border-width: 1; -fx-border-radius: 3;"
-                  wrapText="false"
-                  GridPane.columnIndex="1" 
-                  GridPane.rowIndex="0"
-                  GridPane.rowSpan="3"
-                  GridPane.halignment="RIGHT"
-                  GridPane.valignment="TOP"
-                  maxWidth="Infinity"
-                  maxHeight="Infinity"/>
+        <TextArea fx:id="codigo"
+          promptText="Digite seu código aqui..."
+          wrapText="false"
+          GridPane.columnIndex="1"
+          GridPane.rowIndex="0"
+          GridPane.rowSpan="3"
+          GridPane.halignment="RIGHT"
+          GridPane.valignment="TOP"
+          maxWidth="Infinity"
+          maxHeight="Infinity"
+          style="
+              -fx-font-size: 16px;
+              -fx-font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+              -fx-control-inner-background: #252526;
+              -fx-text-fill: #ffffff;
+              -fx-prompt-text-fill: #888888;
+              -fx-highlight-fill: #264f78;
+              -fx-highlight-text-fill: #ffffff;
+              -fx-padding: 12;
+              -fx-border-color: #555555;
+              -fx-border-width: 1;
+              -fx-border-radius: 5;
+              -fx-background-radius: 5;
+          "/>
         
         <HBox spacing="10" 
               alignment="BOTTOM_RIGHT"
