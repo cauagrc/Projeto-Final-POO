@@ -77,7 +77,7 @@ public abstract class Interpretador {
 		if (matcher.find()) return true;
 		return false;
 	}
-<<<<<<< HEAD
+	
 	// Limpar HashMap
 	public static void limparVariaveis() {
 		variaveisInt = new HashMap<String, Integer>();
@@ -85,8 +85,6 @@ public abstract class Interpretador {
 		variaveisBool = new HashMap<String, Boolean>();
 		variaveisChar = new HashMap<String, Character>();
 	}
-=======
->>>>>>> 940f98954ed9eef01d96c62577c4d4de2ba0a8fc
 	
 	public static int verificarTipo(String tipo) {
 		
@@ -486,7 +484,6 @@ public abstract class Interpretador {
 	}
 	
 	// Associa uma variavel Char ao seu valor
-<<<<<<< HEAD
 	public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
 		String[] elementos = linha.split(" ");
 		
@@ -537,51 +534,7 @@ public abstract class Interpretador {
 		boolean resultado = calcularExpressaoLogica(lista);
 		
 		variaveisChar.put(elementos[1], elementos[3].charAt(1));
-	}
-=======
-		public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
-			String[] elementos = linha.split(linha);
-			
-			if (elementos.length == 0) return;
-			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
-			
-			
-			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
-			
-			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
-			
-			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-			
-			if (!elementos[3].matches("'[^']'")) throw new IllegalArgumentException("O tipo Char nao Aceita esse formato");
-		    
-			variaveisChar.put(elementos[1], elementos[3].charAt(1));
-		}
-		
-		public static void adicionarVariavelBoolean(String linha) throws IllegalArgumentException{
-			String[] elementos = linha.split(linha);
-			
-			if (elementos.length == 0) return;
-			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
-			
-			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
-			
-			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
-			
-			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-			
-			ArrayList<String> lista = new ArrayList<>();
-			for (int i = 3; i < elementos.length - 1; i++) {
-				lista.add(elementos[i]);
-			}   			
-			
-			lista = substituirVariavel(lista);
-			
-			boolean resultado = calcularExpressaoLogica(lista);
-			
-			variaveisChar.put(elementos[1], elementos[3].charAt(1));
-		}
->>>>>>> 940f98954ed9eef01d96c62577c4d4de2ba0a8fc
-	
+	}	
 	// Operaccao Solo ++ e -- e !
 	
 	public static void verificarOperacaoDupla(String elemento1, String elemento2, String operador) throws IllegalArgumentException{
@@ -665,13 +618,4 @@ public abstract class Interpretador {
 	        
 	        return tokens;
 	    }
-	 
-	   // Limpar HashMap
-		public static void limparVariaveis() {
-			variaveisInt = new HashMap<String, Integer>();
-			variaveisFloat = new HashMap<String, Double>();
-			variaveisBool = new HashMap<String, Boolean>();
-			variaveisChar = new HashMap<String, Character>();
-			
-		}
 }
