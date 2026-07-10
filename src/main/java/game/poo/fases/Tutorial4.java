@@ -25,21 +25,28 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Tutorial2 extends FaseController{
+public class Tutorial4 extends FaseController{
 	@FXML
 	Label descricao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 		definirBotoes("/game/poo/fxml/Fases/grupoFase1.fxml");
-		descricao.setText("Você deve ter notado que na última fase não aconteceu nada, correto? Isso aconteceu porque ainda não escrevemos nenhuma instrução para o programa executar. Agora vamos mudar isso aprendendo um dos conceitos mais importantes da programação: as variáveis!"
-				+ "\nVariáveis são espaços utilizados pelo programa para armazenar informações. Elas podem guardar diferentes tipos de dados, como números inteiros (int), números decimais (float), letras (char), entre outros."
-				+ "\nToda variável possui um nome, e é através dele que podemos acessar ou modificar o valor que ela armazena sempre que precisarmos. Vamos começar com números e criar uma variável que armazenará um valor inteiro!"
-				+ "\nPara isso, siga esta estrutura:"
-				+ "\n\nint numero = 10;"
-				+ "\n\nNesse exemplo, criamos uma variável chamada numero e armazenamos o valor 10 dentro dela."
-				+ "\nVocê pode escolher diferentes nomes para suas variáveis, mas lembre-se que o nome deve seguir algumas regras da linguagem C (logo mais explicaremos)."
-				+ "\nAgora tente criar sua primeira variável dentro das chaves {} da função principal! Não esqueça de colocar ';' sempre no final da linha!");
+		descricao.setText("Agora que sabemos a regra, vamos olhar para as possibilidades, aprendemos que o int serve para variáveis do tipo inteiro, isso significa que ela só armazena números sem vírgula, se você foi curioso e tentou declara um número decimal, já percebeu que com o int não é possível, por isso existem outros tipos de variável que podemos usar, outro tipo é o \n"
+				+ "\n"
+				+ "float -> para números decimais\n"
+				+ "\n"
+				+ "Com ele você consegue armazenar número com vírgula sem problema, mas tem um detalhe, o C não entende os números decimais como a gente, para um ser humano os números decimais utilizam virgula (,) para separar a parte inteira da fracionaria, por exemplo: 1,5 , 2,540, 3,14 etc . Enquanto isso o C usa o ponto (.) para dividir: 2.5, 4.5, 100.234 etc, isso significa que sempre que você pensar em usar vírgula você vai usar o ponto:\n"
+				+ "\n"
+				+ "1,5 -> 1.5\n"
+				+ "24,23 -> 24.23\n"
+				+ "100,222 -> 100.222\n"
+				+ "\n"
+				+ "Para declarar uma variável float é a mesma estrutura anterior, mas substitua o int pelo float\n"
+				+ "\n"
+				+ "float numero decimal = 2.0;\n"
+				+ "\n"
+				+ "Agora faça você!");
 	}
 	
 	@Override
@@ -55,7 +62,7 @@ public class Tutorial2 extends FaseController{
 				
 			// Verificando se Existe o Main e apenas 1 unico Main
 			if (Interpretador.verificarMain(cod) == 1) throw new IllegalArgumentException("A sua Funcao Principal nao foi Encontrada ou Esta Mal Declarada!");
-			//else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
+			else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
 			
 			// Verifica se a Quantidade de {} esta correta
 			Interpretador.verificarChaves(linhas);
@@ -70,7 +77,7 @@ public class Tutorial2 extends FaseController{
 			// Marca onde fica a linha do } do Main
 			if (Interpretador.verificarFechamento(linhas[linhas.length - 1])) linhaFinal = linhas.length - 1;
 			
-			Interpretador.adicionarVariavelInt(linhas[linhaInicio + 1]);
+			Interpretador.adicionarVariavelFloat(linhas[linhaInicio]);
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText(e.getMessage());

@@ -59,12 +59,12 @@ public abstract class Interpretador {
 		variaveisFloat = new HashMap<String, Double>();
 		variaveisBool = new HashMap<String, Boolean>();
 		variaveisChar = new HashMap<String, Character>();
-		
 	}
 	
 	//
 	public static int verificarTipo(String tipo) {
-		switch(tipo) {
+		
+		switch(tipo.trim()) {
 			case "int":
 				return 1;
 			case "float":
@@ -91,6 +91,19 @@ public abstract class Interpretador {
         return true;
     }
 	
+    private static boolean verificarPontoVirgula(String elemento) {
+    	char[] letras = elemento.toCharArray();
+    	
+    	if (!(letras[letras.length - 1] == ';')) return false;
+    	
+    	return true;
+    }
+    
+    private static String removerPontoVirgula(String elemento) {
+    	elemento = elemento.substring(0, elemento.length() - 1);
+    	return elemento;
+    }
+    
 	private static double numero(String s) {
 		try {
 		    return Double.parseDouble(s);
@@ -161,7 +174,7 @@ public abstract class Interpretador {
                     throw new IllegalArgumentException("Operador inválido: " + op);
             }
         }
-
+        
         return resultado;
 	}
 	
@@ -294,22 +307,28 @@ public abstract class Interpretador {
 	
 	// Associa uma variavel Int ao seu valor
 	public static void adicionarVariavelInt(String linha) throws IllegalArgumentException{
-		String[] elementos = linha.split(linha);
+		String[] elementos = linha.split(" ");
+		ArrayList<String> lista = new ArrayList<>();
 		
 		if (elementos.length == 0) return;
 		if (elementos.length < 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
-		
 		
 		if (verificarTipo(elementos[0]) != 1) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
 		
 		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
 		
 		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-		
-		ArrayList<String> lista = new ArrayList<>();
-		for (int i = 3; i < elementos.length - 1; i++) {
-			lista.add(elementos[i]);
-		}   			
+		if (elementos[elementos.length - 1].equals(";")) {
+			for (int i = 3; i < elementos.length - 1; i++) {
+				lista.add(elementos[i]);
+			}
+		}else if (verificarPontoVirgula(elementos[elementos.length - 1])){
+			elementos[elementos.length - 1] = removerPontoVirgula(elementos[elementos.length - 1]);
+			for (int i = 3; i < elementos.length; i++) {
+				lista.add(elementos[i]);
+			}
+		}else throw new  IllegalArgumentException("Esqueceu o Ponto e Virgula no Final (;)!");
+		   			
 		
 		lista = substituirVariavel(lista);
 		
@@ -318,11 +337,13 @@ public abstract class Interpretador {
 		if (resultado == (int) resultado) {
 			variaveisInt.put(elementos[1], (int) resultado);
 		}else throw new  IllegalArgumentException("O valor inserido nao eh Compativel com o Tipo Inteiro!");
+		
 	}
 	
 	// Associa uma variavel Float ao seu valor
 	public static void adicionarVariavelFloat(String linha) throws IllegalArgumentException{
-		String[] elementos = linha.split(linha);
+		String[] elementos = linha.split(" ");
+		ArrayList<String> lista = new ArrayList<>();
 		
 		if (elementos.length == 0) return;
 		if (elementos.length < 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
@@ -333,12 +354,17 @@ public abstract class Interpretador {
 		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
 		
 		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-		
-		ArrayList<String> lista = new ArrayList<>();
-		for (int i = 3; i < elementos.length - 1; i++) {
-			lista.add(elementos[i]);
-		}   			
-		
+		if (elementos[elementos.length - 1].equals(";")) {
+			for (int i = 3; i < elementos.length - 1; i++) {
+				lista.add(elementos[i]);
+			}
+		}else if (verificarPontoVirgula(elementos[elementos.length - 1])){
+			elementos[elementos.length - 1] = removerPontoVirgula(elementos[elementos.length - 1]);
+			for (int i = 3; i < elementos.length; i++) {
+				lista.add(elementos[i]);
+			}
+		}else throw new  IllegalArgumentException("Esqueceu o Ponto e Virgula no Final (;)!");
+				
 		lista = substituirVariavel(lista);
 		
 		double resultado = calcular(lista);
@@ -348,7 +374,7 @@ public abstract class Interpretador {
 	
 	// Associa uma variavel Char ao seu valor
 	public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
-		String[] elementos = linha.split(linha);
+		String[] elementos = linha.split(" ");
 		
 		if (elementos.length == 0) return;
 		if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
@@ -359,14 +385,19 @@ public abstract class Interpretador {
 		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
 		
 		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-		
+		if (elementos[elementos.length - 1].equals(";")) {
+			
+		}else if (verificarPontoVirgula(elementos[elementos.length - 1])){
+			elementos[elementos.length - 1] = removerPontoVirgula(elementos[elementos.length - 1]);
+		}else throw new  IllegalArgumentException("Esqueceu o Ponto e Virgula no Final (;)!");
 		if (!elementos[3].matches("'[^']'")) throw new IllegalArgumentException("O tipo Char nao Aceita esse formato");
 	    
 		variaveisChar.put(elementos[1], elementos[3].charAt(1));
 	}
 	
 	public static void adicionarVariavelBoolean(String linha) throws IllegalArgumentException{
-		String[] elementos = linha.split(linha);
+		String[] elementos = linha.split(" ");
+		ArrayList<String> lista = new ArrayList<>();
 		
 		if (elementos.length == 0) return;
 		if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
@@ -376,11 +407,16 @@ public abstract class Interpretador {
 		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
 		
 		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-		
-		ArrayList<String> lista = new ArrayList<>();
-		for (int i = 3; i < elementos.length - 1; i++) {
-			lista.add(elementos[i]);
-		}   			
+		if (elementos[elementos.length - 1].equals(";")) {
+			for (int i = 3; i < elementos.length - 1; i++) {
+				lista.add(elementos[i]);
+			}
+		}else if (verificarPontoVirgula(elementos[elementos.length - 1])){
+			elementos[elementos.length - 1] = removerPontoVirgula(elementos[elementos.length - 1]);
+			for (int i = 3; i < elementos.length; i++) {
+				lista.add(elementos[i]);
+			}
+		}else throw new  IllegalArgumentException("Esqueceu o Ponto e Virgula no Final (;)!");
 		
 		lista = substituirVariavel(lista);
 		
