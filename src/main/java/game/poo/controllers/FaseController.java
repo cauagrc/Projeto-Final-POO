@@ -55,33 +55,6 @@ public abstract class FaseController implements Initializable {
 
 	}
 	
-	// Definir qual FXML da Representacao 3D
-	public void iniciarJogo(String fxmlJogo) {
-		Platform.runLater(() -> {
-		    root.requestFocus();
-
-		    root.setOnKeyPressed(event -> {
-
-		        if (event.getCode() == KeyCode.F11) {
-		            Stage stage = (Stage) root.getScene().getWindow();
-		            stage.setFullScreen(!stage.isFullScreen());
-		        }
-		    });
-		});
-		try {
-            // Carregar o FXML da janela acoplada
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlJogo));
-            Parent janelaAcoplada = loader.load();
-            
-            // Adicionar a tela ao Painel dentro da Janela da Fase
-            jogo.getChildren().add(janelaAcoplada);   
-		}catch(IOException e) {
-			alerta.setTitle("ERRO");
-			alerta.setHeaderText("Houve um erro ao Carregar o Jogo, Por Favor Reinicie");
-			alerta.showAndWait();
-		}
-	}
-	
 	// Definir pra qual grupo de Fases deve voltar
 	public void definirBotoes(String grupoFase) {
 		bComecar.setOnAction(event -> {
@@ -105,6 +78,5 @@ public abstract class FaseController implements Initializable {
 	}
 	
 	public abstract void chamarInterpretador();
-	public abstract String getFxmlJogo();
 }
 

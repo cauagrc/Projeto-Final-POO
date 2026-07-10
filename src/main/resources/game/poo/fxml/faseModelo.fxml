@@ -1,104 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import Elements.BotaoGrupo?>
 <?import Elements.BotaoCena?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<!-- Grid Pane Divide os elementos melhor na tela (independente do tamanho) -->
-<GridPane xmlns:fx="http://javafx.com/fxml/1" 
-          fx:controller="game.poo.controllers.FaseController"
+<GridPane xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="game.poo.controller.FaseController"
           fx:id="root"
-          prefHeight="474.0" 
+          prefHeight="474.0"
           prefWidth="637.0"
           style="-fx-background-color: #f0f0f0; -fx-padding: 15;"
-          hgap="15" 
+          hgap="15"
           vgap="5">
 
-<!-- Tamanho das Colunas e Linhas -->
+    <!-- Proporção das colunas -->
     <columnConstraints>
-        <ColumnConstraints percentWidth="72"/>
-        <ColumnConstraints percentWidth="28"/>
+        <ColumnConstraints percentWidth="55"/>
+        <ColumnConstraints percentWidth="45"/>
     </columnConstraints>
-    
+
+    <!-- Proporção das linhas -->
     <rowConstraints>
         <RowConstraints percentHeight="8"/>
-        <RowConstraints percentHeight="12"/>
-        <RowConstraints percentHeight="68"/>
+        <RowConstraints percentHeight="80"/>
         <RowConstraints percentHeight="12"/>
     </rowConstraints>
-    
+
     <children>
-        
-        <Label text="Descrição:" 
+
+        <!-- Título da descrição -->
+        <Label text="Descrição:"
                style="-fx-font-size: 16px; -fx-font-weight: bold;"
-               GridPane.columnIndex="0" 
+               GridPane.columnIndex="0"
                GridPane.rowIndex="0"
                GridPane.halignment="LEFT"
                GridPane.valignment="BOTTOM"/>
-        
-        <!-- Descricao da Fase -->
-        <Label fx:id="descricao" 
-               wrapText="true" 
-               text="Selecione um grupo." 
-               style="-fx-font-size: 14px; -fx-background-color: #e8e8e8; -fx-padding: 8;"
-               GridPane.columnIndex="0" 
+
+        <!-- Área da descrição -->
+        <Label fx:id="descricao"
+               text=""
+               wrapText="true"
+               maxWidth="Infinity"
+               maxHeight="Infinity"
+               style="
+                    -fx-font-size: 14px;
+                    -fx-background-color: white;
+                    -fx-border-color: #2196F3;
+                    -fx-border-width: 2;
+                    -fx-border-radius: 5;
+                    -fx-background-radius: 5;
+                    -fx-padding: 12;
+               "
+               GridPane.columnIndex="0"
                GridPane.rowIndex="1"
                GridPane.halignment="LEFT"
-               GridPane.valignment="TOP"
-               maxWidth="Infinity"/>
-        
-        <!-- AnchorPane associado a Janela do Jogo -->
-        <AnchorPane fx:id="jogo" 
-                    style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-width: 2; -fx-border-radius: 5;"
-                    GridPane.columnIndex="0" 
-                    GridPane.rowIndex="2"
-                    GridPane.halignment="LEFT"
-                    GridPane.valignment="TOP"
-                    maxWidth="Infinity"
-                    maxHeight="Infinity"/>
-        
-        <!-- Area do código -->
-        <TextArea fx:id="codigo" 
+               GridPane.valignment="TOP"/>
+
+        <!-- Área de código -->
+        <TextArea fx:id="codigo"
                   promptText="Digite seu código aqui..."
-                  style="-fx-font-size: 14px; -fx-font-family: 'Consolas', 'Monaco', 'Courier New', monospace; -fx-background-color: #1e1e1e; -fx-text-fill: #d4d4d4; -fx-padding: 10; -fx-border-color: #333; -fx-border-width: 1; -fx-border-radius: 3;"
                   wrapText="false"
-                  GridPane.columnIndex="1" 
-                  GridPane.rowIndex="0"
-                  GridPane.rowSpan="3"
-                  GridPane.halignment="RIGHT"
-                  GridPane.valignment="TOP"
                   maxWidth="Infinity"
-                  maxHeight="Infinity"/>
-        
-        <HBox spacing="10" 
-              alignment="BOTTOM_RIGHT"
-              GridPane.columnIndex="0" 
-              GridPane.rowIndex="3"
-              GridPane.columnSpan="2"
-              GridPane.halignment="RIGHT"
-              GridPane.valignment="BOTTOM">
-            
-            <!-- Botao de Voltar (Grupo de Fases) -->
-            <BotaoCena fx:id="bVoltar" 
-                       text="VOLTAR" 
-                       prefWidth="120" 
+                  maxHeight="Infinity"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="0"
+                  GridPane.rowSpan="2"
+                  style="
+                      -fx-font-size: 16px;
+                      -fx-font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+                      -fx-control-inner-background: #252526;
+                      -fx-text-fill: #ffffff;
+                      -fx-prompt-text-fill: #888888;
+                      -fx-highlight-fill: #264f78;
+                      -fx-highlight-text-fill: #ffffff;
+                      -fx-padding: 12;
+                      -fx-border-color: #555555;
+                      -fx-border-width: 1;
+                      -fx-border-radius: 5;
+                      -fx-background-radius: 5;
+                  "/>
+
+        <!-- Barra inferior -->
+        <HBox spacing="10"
+              alignment="CENTER_RIGHT"
+              GridPane.columnIndex="0"
+              GridPane.rowIndex="2"
+              GridPane.columnSpan="2">
+
+            <BotaoCena fx:id="bVoltar"
+                       text="VOLTAR"
+                       prefWidth="120"
                        prefHeight="35"/>
-            
-            <!-- Botao de Rodar o Codigo -->
-            <Button fx:id="bComecar" 
-                    text="COMECAR" 
-                    prefWidth="120" 
+
+            <Button fx:id="bComecar"
+                    text="COMEÇAR"
+                    prefWidth="120"
                     prefHeight="35"
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"/>
-            
+                    style="
+                        -fx-background-color: #4CAF50;
+                        -fx-text-fill: white;
+                        -fx-font-weight: bold;
+                    "/>
+
         </HBox>
-        
+
     </children>
+
 </GridPane>
