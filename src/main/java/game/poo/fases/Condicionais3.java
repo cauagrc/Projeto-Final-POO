@@ -7,6 +7,17 @@ import game.poo.controllers.FaseController;
 
 public class Condicionais3 extends FaseController {
 
+    /*CÓDIGO ESPERADO PELO USUÁRIO:
+  int main(){
+  int caixa = 15;
+  if(caixa>10){
+  printf("Caixa grande");
+  }else{
+  printf("Caixa pequena");
+  }
+  }
+*/
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {    
         definirBotoes("/game/poo/fxml/Fases/grupoFase4.fxml");
