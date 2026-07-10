@@ -618,4 +618,69 @@ public abstract class Interpretador {
 	        
 	        return tokens;
 	    }
+
+	private static boolean verificarCompatibilidade(String especificador, String nomeVariavel) {
+		switch (especificador) {
+		//Para variaveis de tipo inteiro
+		case "d":
+		case "i":
+			return variaveisInt.containsKey(nomeVariavel) || variaveisBool.containsKey(nomeVariavel);
+		//Para variaveis do tipo float
+		case "f":
+			return variaveisFloat.containsKey(nomeVariavel);
+		case "c":
+		//Para variaveis do tipo char
+			return variaveisChar.containsKey(nomeVariavel);
+		//O especificador usado nao e compativel com a variavel
+		default:
+			return false;
+		}
+	}
+	
+	public static int verificarScanf(String linha) {
+		String regex = "^scanf\\s*\\(\\s*\"%(d|i|f|c)\"\\s*,\\s*&([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\)\\s*;$";
+
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(linha.trim());
+
+		//Caso o scanf esteja escrito de forma incorreta
+		if (!matcher.matches()) return 0;
+
+		//Pega o especificador que o regex retorna
+		String especificador = matcher.group(1);
+		//Pega o nome da variavel que o regex retorna
+		String nomeVariavel = matcher.group(2);
+
+		if (!verificarNome(nomeVariavel)) return 0; //Caso o nome da variavel seja invalida
+
+		System.out.println(variaveisInt.containsKey(nomeVariavel));
+		if (!verificarCompatibilidade(especificador, nomeVariavel)) return 0; //Caso o especificador nao seja do mesmo tipo da variavel
+
+		return 1;
+	}
+	
+	public static int verificarPrintf(String linha) {
+	    String regex = "^printf\\s*\\(\\s*\"%(d|i|f|c)\"\\s*,\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\)\\s*;$";
+
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(linha.trim());
+
+	    // Caso o printf esteja escrito incorretamente
+	    if (!matcher.matches()) return 0;
+	    
+	    //Pega o especificador que o regex retorna
+	    String especificador = matcher.group(1);
+	    //Pega o nome da variavel que o regex retorna
+	    String nomeVariavel = matcher.group(2);
+
+	    // Verifica nome invalido ou palavra reservada
+	    if (!verificarNome(nomeVariavel)) {
+	        return 0;
+	    }
+
+	    // Verifica se a variável existe e se o tipo é compatível
+	    if (!verificarCompatibilidade(especificador, nomeVariavel)) return 0;
+
+	    return 1;
+	}
 }
