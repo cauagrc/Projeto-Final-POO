@@ -77,6 +77,50 @@ public abstract class FaseController implements Initializable {
 		});
 	}
 	
+	// pextrai o texto de dentro do main()
+	protected String extrairTextoMain(String[] linhas) {
+	    StringBuilder texto = new StringBuilder();
+	    int linhaAbertura = -1;
+	    int linhaFechamento = -1;
+
+	    for (int i = 0; i < linhas.length; i++) {
+	        if (Elements.Interpretador.verificarAbertura(linhas[i])) {
+	            linhaAbertura = i;
+	            break;
+	        }
+	    }
+	    for (int i = linhas.length - 1; i >= 0; i--) {
+	        if (Elements.Interpretador.verificarFechamento(linhas[i])) {
+	            linhaFechamento = i;
+	            break;
+	        }
+	    }
+
+	    if (linhaAbertura != -1 && linhaFechamento != -1) {
+	        for (int i = linhaAbertura + 1; i < linhaFechamento; i++) {
+	        	texto.append(linhas[i]).append("\n");
+	        }
+	    }
+	    return texto.toString().trim();
+	}
+
+	//padronizar os alertas
+	protected void exibirSucesso(String cabecalho, String mensagem) {
+	    alerta.setAlertType(Alert.AlertType.INFORMATION);
+	    alerta.setTitle("SUCESSO");
+	    alerta.setHeaderText(cabecalho);
+	    alerta.setContentText(mensagem);
+	    alerta.showAndWait();
+	}
+
+	protected void exibirErro(String cabecalho, String mensagem) {
+	    alerta.setAlertType(Alert.AlertType.ERROR);
+	    alerta.setTitle("ERRO DE COMPILAÇÃO");
+	    alerta.setHeaderText(cabecalho);
+	    alerta.setContentText(mensagem);
+	    alerta.showAndWait();
+	}
+	
 	public abstract void chamarInterpretador();
 }
 
