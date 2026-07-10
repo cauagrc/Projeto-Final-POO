@@ -653,7 +653,6 @@ public abstract class Interpretador {
 
 		if (!verificarNome(nomeVariavel)) return 0; //Caso o nome da variavel seja invalida
 
-		System.out.println(variaveisInt.containsKey(nomeVariavel));
 		if (!verificarCompatibilidade(especificador, nomeVariavel)) return 0; //Caso o especificador nao seja do mesmo tipo da variavel
 
 		return 1;
