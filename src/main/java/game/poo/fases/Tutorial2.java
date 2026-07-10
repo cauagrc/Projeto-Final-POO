@@ -39,7 +39,7 @@ public class Tutorial2 extends FaseController{
 				+ "\n\nint numero = 10;"
 				+ "\n\nNesse exemplo, criamos uma variável chamada numero e armazenamos o valor 10 dentro dela."
 				+ "\nVocê pode escolher diferentes nomes para suas variáveis, mas lembre-se que o nome deve seguir algumas regras da linguagem C (logo mais explicaremos)."
-				+ "\nAgora tente criar sua primeira variável dentro das chaves {} da função principal!");
+				+ "\nAgora tente criar sua primeira variável dentro das chaves {} da função principal! Não esqueça de colocar ';' sempre no final da linha!");
 	}
 	
 	@Override
