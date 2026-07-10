@@ -22,11 +22,24 @@ public class TestsInterpretador {
 
 		
 		Interpretador.limparVariaveis();
-		
+		/*
 		String codigo = "int main() {return 1;}";
 		
 		int resultado = Interpretador.verificarMain(codigo);
         System.out.println("Resultado: " + resultado);
+        */
+		
+		Interpretador.adicionarVariavelInt("int idade = 0;");
+        Interpretador.adicionarVariavelFloat("float altura = 0.0;");
+        Interpretador.adicionarVariavelChar("char letra = 'A';");
+        
+		System.out.println(Interpretador.verificarScanf("scanf(\"%d\", &idade);"));
+
+		System.out.println(Interpretador.verificarScanf("scanf(\"%f\", &altura);"));
+
+		System.out.println(Interpretador.verificarScanf("scanf(\"%c\", &letra);"));
+
+		System.out.println(Interpretador.verificarScanf("scanf(\"%f\", &idade);"));
 	}
 
 }
