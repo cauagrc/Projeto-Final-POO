@@ -12,6 +12,7 @@
 
 <BorderPane prefHeight="474.0"
             prefWidth="637.0"
+            stylesheets="/game/poo/styles/menuStyle2.css"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="game.poo.grupos.GrupoTutorial">
