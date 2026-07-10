@@ -43,5 +43,12 @@ public class GrupoVariaveis extends FaseMenuController {
 	public void initialize(URL location, ResourceBundle resources) {
 		definirBotoes();
 		definirFase(fase1, "/game/poo/fxml/Jogos/variaveis1.fxml");
+		definirFase(fase2, "/game/poo/fxml/Jogos/variaveis2.fxml");
+		definirFase(fase3, "/game/poo/fxml/Jogos/variaveis3.fxml");
+		definirFase(fase4, "/game/poo/fxml/Jogos/variaveis4.fxml");
+		definirFase(fase5, "/game/poo/fxml/Jogos/variaveis5.fxml");
+		definirFase(fase6, "/game/poo/fxml/Jogos/variaveis6.fxml");
+		definirFase(fase7, "/game/poo/fxml/Jogos/variaveis7.fxml");
+		definirFase(fase8, "/game/poo/fxml/Jogos/variaveis8.fxml");
 	}
 }

@@ -8,7 +8,7 @@ import game.poo.controllers.FaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class Variaveis1 extends FaseController {
+public class Variaveis7 extends FaseController {
 	
 	@FXML
 	Label descricao;
@@ -17,10 +17,13 @@ public class Variaveis1 extends FaseController {
 	public void initialize(URL location, ResourceBundle resources) {	
 		definirBotoes("/game/poo/fxml/Fases/grupoFase2.fxml");
 		descricao.setText(""
-				+ "Uma sacolinha de aniversário contém 10 doces."
-				+ " Declare a função main(). Dentro dela, crie uma variável inteira chamada saquinho, armazene nela a"
-				+ " quantidade de doces e imprima esse valor."
-				);
+				+ "Um novo setor sera identificado, mas o quadro ainda nao"
+				+ " possui nenhuma letra. Declare a funcao main(). Dentro"
+				+ " dela, crie uma variavel do tipo char chamada quadro"
+				+ " com um valor inicial vazio. Em seguida, leia e"
+				+ " armazene na mesma variavel a letra informada pelo"
+				+ " operador e imprima esse valor."
+		);
 	}
 
 	@Override
@@ -32,6 +35,7 @@ public class Variaveis1 extends FaseController {
 			int linhaFinal = 0;
 			int quantidadeInstrucoes = 0;
 			boolean declaracaoConcluida = false;
+			boolean entradaConcluida = false;
 			boolean saidaConcluida = false;
 			boolean returnEncontrado = false;
 
@@ -41,7 +45,7 @@ public class Variaveis1 extends FaseController {
 
 			int resultadoMain = Interpretador.verificarMain(cod);
 
-			if (resultadoMain == 1) throw new IllegalArgumentException("A sua função principal nao foi encontrada ou esta mal declarada.");
+			if (resultadoMain == 1) throw new IllegalArgumentException("A sua funcao principal nao foi encontrada ou esta mal declarada.");
 
 			if (resultadoMain == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo.");
 
@@ -74,9 +78,9 @@ public class Variaveis1 extends FaseController {
 
 				quantidadeInstrucoes++;
 
-				if (linha.startsWith("int ")) {
+				if (linha.startsWith("char ")) {
 					try {
-						Interpretador.adicionarVariavelInt(linha);
+						Interpretador.adicionarVariavelChar(linha);
 					} catch (IllegalArgumentException e) {
 						throw new IllegalArgumentException("Linha " + (i + 1) + ": " + e.getMessage());
 					}
@@ -91,7 +95,7 @@ public class Variaveis1 extends FaseController {
 							valor = valor.substring(0, valor.length() - 1);
 						}
 
-						if (nome.equals("saquinho") && valor.equals("10")) {
+						if (nome.equals("quatro") && valor.equals("'-'")) {
 							declaracaoConcluida = true;
 						}
 					}
@@ -99,12 +103,23 @@ public class Variaveis1 extends FaseController {
 					continue;
 				}
 
-				if (linha.startsWith("printf")) {
+				if (linha.startsWith("scanf")) {
 					if (!declaracaoConcluida)
-						throw new IllegalArgumentException("Linha " + (i + 1) + ": declare corretamente a variavel saquinho antes de imprimir o valor.");
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": declare corretamente a variavel quatro antes de ler o valor.");
+
+					if (Interpretador.verificarScanf(linha) == 0)
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": o scanf esta incorreto ou nao corresponde a variavel quatro.");
+
+					entradaConcluida = true;
+					continue;
+				}
+
+				if (linha.startsWith("printf")) {
+					if (!entradaConcluida)
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": leia e armazene a identificacao antes de imprimir o valor.");
 
 					if (Interpretador.verificarPrintf(linha) == 0)
-						throw new IllegalArgumentException("Linha " + (i + 1) + ": o printf esta incorreto ou nao corresponde a variavel saquinho.");
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": o printf esta incorreto ou nao corresponde a variavel quatro.");
 
 					saidaConcluida = true;
 					continue;
@@ -113,14 +128,16 @@ public class Variaveis1 extends FaseController {
 				throw new IllegalArgumentException("Linha " + (i + 1) + ": instrucao invalida para este desafio.");
 			}
 
-			if (quantidadeInstrucoes > 2) throw new IllegalArgumentException("Este desafio deve possuir apenas as duas instrucoes necessarias.");
+			if (quantidadeInstrucoes > 3) throw new IllegalArgumentException("Este desafio deve possuir apenas as tres instrucoes necessarias.");
 
-			if (!declaracaoConcluida) throw new IllegalArgumentException("Crie uma variavel inteira chamada 'saquinho' e armazene nela o valor 10.");
+			if (!declaracaoConcluida) throw new IllegalArgumentException("Crie uma variavel do tipo char chamada 'quatro' com o valor inicial '-'.");
 
-			if (!saidaConcluida) throw new IllegalArgumentException("Imprima o valor armazenado na variavel saquinho.");
+			if (!entradaConcluida) throw new IllegalArgumentException("Leia e armazene na variavel quatro a letra informada.");
+
+			if (!saidaConcluida) throw new IllegalArgumentException("Imprima o valor armazenado na variavel quatro.");
 
 			alerta.setTitle("SUCESSO");
-			alerta.setHeaderText("Desafio concluído.");
+			alerta.setHeaderText("Desafio concluido.");
 			alerta.showAndWait();
 
 		} catch (IllegalArgumentException e) {

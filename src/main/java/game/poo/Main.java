@@ -10,8 +10,8 @@ public class Main extends Application {
 
 	@Override
     public void start(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/game/poo/fxml/Jogos/variaveis1.fxml"));
-		//FXMLLoader loader = new FXMLLoader(getClass().getResource("/game/poo/fxml/loading.fxml"));
+		//FXMLLoader loader = new FXMLLoader(getClass().getResource("/game/poo/fxml/Jogos/variaveis1.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/game/poo/fxml/loading.fxml"));
 		 
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

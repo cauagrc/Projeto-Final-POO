@@ -8,7 +8,7 @@ import game.poo.controllers.FaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class Variaveis1 extends FaseController {
+public class Variaveis2 extends FaseController {
 	
 	@FXML
 	Label descricao;
@@ -17,9 +17,11 @@ public class Variaveis1 extends FaseController {
 	public void initialize(URL location, ResourceBundle resources) {	
 		definirBotoes("/game/poo/fxml/Fases/grupoFase2.fxml");
 		descricao.setText(""
-				+ "Uma sacolinha de aniversário contém 10 doces."
-				+ " Declare a função main(). Dentro dela, crie uma variável inteira chamada saquinho, armazene nela a"
-				+ " quantidade de doces e imprima esse valor."
+				+ "No Halloween, uma criança saiu para pedir doces levando um saco vazio."
+				+ " Declare a função main(). Dentro dela, crie uma variável inteira chamada sacoDoce"
+				+ " com a quantidade inicial de doces igual a 0."
+				+ " Em seguida, leia e armazene na mesma variável a quantidade de doces obtida pela criança"
+				+ " ao final da noite e imprima esse valor."
 				);
 	}
 
@@ -32,6 +34,7 @@ public class Variaveis1 extends FaseController {
 			int linhaFinal = 0;
 			int quantidadeInstrucoes = 0;
 			boolean declaracaoConcluida = false;
+			boolean entradaConcluida = false;
 			boolean saidaConcluida = false;
 			boolean returnEncontrado = false;
 
@@ -91,7 +94,7 @@ public class Variaveis1 extends FaseController {
 							valor = valor.substring(0, valor.length() - 1);
 						}
 
-						if (nome.equals("saquinho") && valor.equals("10")) {
+						if (nome.equals("sacoDoce") && valor.equals("0")) {
 							declaracaoConcluida = true;
 						}
 					}
@@ -99,12 +102,23 @@ public class Variaveis1 extends FaseController {
 					continue;
 				}
 
-				if (linha.startsWith("printf")) {
+				if (linha.startsWith("scanf")) {
 					if (!declaracaoConcluida)
-						throw new IllegalArgumentException("Linha " + (i + 1) + ": declare corretamente a variavel saquinho antes de imprimir o valor.");
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": declare corretamente a variavel sacoDoce antes de ler o valor.");
+
+					if (Interpretador.verificarScanf(linha) == 0)
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": o scanf esta incorreto ou nao corresponde a variavel sacoDoce.");
+
+					entradaConcluida = true;
+					continue;
+				}
+
+				if (linha.startsWith("printf")) {
+					if (!entradaConcluida)
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": leia e armazene a quantidade de doces antes de imprimir o valor.");
 
 					if (Interpretador.verificarPrintf(linha) == 0)
-						throw new IllegalArgumentException("Linha " + (i + 1) + ": o printf esta incorreto ou nao corresponde a variavel saquinho.");
+						throw new IllegalArgumentException("Linha " + (i + 1) + ": o printf esta incorreto ou nao corresponde a variavel sacoDoce.");
 
 					saidaConcluida = true;
 					continue;
@@ -113,11 +127,13 @@ public class Variaveis1 extends FaseController {
 				throw new IllegalArgumentException("Linha " + (i + 1) + ": instrucao invalida para este desafio.");
 			}
 
-			if (quantidadeInstrucoes > 2) throw new IllegalArgumentException("Este desafio deve possuir apenas as duas instrucoes necessarias.");
+			if (quantidadeInstrucoes > 3) throw new IllegalArgumentException("Este desafio deve possuir apenas as tres instrucoes necessarias.");
 
-			if (!declaracaoConcluida) throw new IllegalArgumentException("Crie uma variavel inteira chamada 'saquinho' e armazene nela o valor 10.");
+			if (!declaracaoConcluida) throw new IllegalArgumentException("Crie uma variavel inteira chamada 'sacoDoce' com o valor inicial 0.");
 
-			if (!saidaConcluida) throw new IllegalArgumentException("Imprima o valor armazenado na variavel saquinho.");
+			if (!entradaConcluida) throw new IllegalArgumentException("Leia e armazene na variavel sacoDoce a quantidade de doces obtida.");
+
+			if (!saidaConcluida) throw new IllegalArgumentException("Imprima o valor armazenado na variavel sacoDoce.");
 
 			alerta.setTitle("SUCESSO");
 			alerta.setHeaderText("Desafio concluído.");
