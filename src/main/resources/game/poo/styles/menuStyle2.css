@@ -1,0 +1,207 @@
+/* ==========================================================
+   MENU STYLE 2
+   Tema: Educacional moderno
+   ========================================================== */
+
+/* ===========================
+   Fundo da janela
+   =========================== */
+
+.root,
+.border-pane {
+
+    -fx-background-color:
+        linear-gradient(to bottom,
+            #f8fbff 0%,
+            #edf4ff 100%);
+}
+
+
+/* ===========================
+   Painel das fases (ScrollPane)
+   =========================== */
+
+.scroll-pane {
+
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+
+    -fx-border-color: #c8daf6;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0,0,0,.10),
+        10,
+        .15,
+        0,
+        2);
+}
+
+.scroll-pane > .viewport {
+
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+}
+
+
+/* Remove a borda interna padrão */
+
+.scroll-pane .corner{
+    -fx-background-color:white;
+}
+
+
+/* ===========================
+   Barra de rolagem
+   =========================== */
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal{
+
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb{
+
+    -fx-background-color: #8eb7ff;
+    -fx-background-radius: 20;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button{
+
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+
+/* ===========================
+   Labels
+   =========================== */
+
+.label{
+
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #243b53;
+}
+
+
+/* Título "Descrição:" */
+
+.label:first-child{
+
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1d4ed8;
+}
+
+
+/* Área da descrição */
+
+#descricao{
+
+    -fx-background-color: white;
+
+    -fx-background-radius: 14;
+
+    -fx-border-color: #d6e5ff;
+    -fx-border-radius: 14;
+
+    -fx-padding: 16;
+
+    -fx-font-size: 14px;
+
+    -fx-text-fill: #4b5563;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0,0,0,.08),
+        10,
+        .15,
+        0,
+        2);
+}
+
+
+/* ===========================
+   Botões (BotaoCena)
+   =========================== */
+
+.button{
+
+    -fx-background-color:
+        linear-gradient(to bottom,
+            #4f9cf9,
+            #2563eb);
+
+    -fx-text-fill: white;
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+
+    -fx-padding: 10 20;
+
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0,0,0,.18),
+        10,
+        .20,
+        0,
+        3);
+}
+
+.button:hover{
+
+    -fx-background-color:
+        linear-gradient(to bottom,
+            #67adff,
+            #3b82f6);
+
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.button:pressed{
+
+    -fx-background-color: #1d4ed8;
+
+    -fx-scale-x: .98;
+    -fx-scale-y: .98;
+}
+
+
+/* ===========================
+   VBox da direita
+   =========================== */
+
+.vbox{
+
+    -fx-background-color: transparent;
+}
+
+
+/* ===========================
+   Foco
+   =========================== */
+
+.button:focused{
+
+    -fx-border-color: #93c5fd;
+    -fx-border-width: 2;
+}
