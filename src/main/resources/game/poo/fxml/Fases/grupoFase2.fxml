@@ -1,46 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import Elements.BotaoGrupo?>
 <?import Elements.BotaoCena?>
+<?import Elements.BotaoGrupo?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
 
-<AnchorPane prefHeight="474.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.grupos.GrupoTutorial">
-   <children>
-      <VBox layoutX="20"
-            layoutY="20"
-            spacing="10">
-         <children>
-            <BotaoGrupo
-                fx:id="fase1"
-                text="Fase1 - Variaveis"
-                descricao="Descrição da Fase 1"
-                onAction="#enviarInfos"
-                prefWidth="180"/>
+<BorderPane prefHeight="474.0"
+            prefWidth="637.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="game.poo.grupos.GrupoTutorial">
 
-            <BotaoGrupo
-                fx:id="fase2"
-                text="Fase 2"
-                descricao="Descrição da Fase 2"
-                onAction="#enviarInfos"
-                prefWidth="180"/>
+    <!-- Lista de fases -->
+    <left>
+        <ScrollPane fitToWidth="true"
+                    prefWidth="210"
+                    BorderPane.alignment="CENTER">
 
-            <BotaoGrupo
-                fx:id="fase3"
-                text="Fase 3"
-                descricao="Descrição da Fase 3"
-                onAction="#enviarInfos"
-                prefWidth="180"/>
-         </children>
-      </VBox>
-      <BotaoCena fx:id="bVoltar" text="VOLTAR" layoutX="20" layoutY="300" prefWidth="120" prefHeight="35" />
-      
-      <Label text="Descrição:" layoutX="250" layoutY="30" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <content>
+                <VBox spacing="10" fillWidth="true">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
 
-      <Label fx:id="descricao" layoutX="250" layoutY="70" prefWidth="340" wrapText="true" text="Selecione um grupo." style="-fx-font-size: 14px;"/>
-      
-      <BotaoCena fx:id="bEntrar" text="ENTRAR" layoutX="250" layoutY="180" prefWidth="120" prefHeight="35"/>
-   </children>
-</AnchorPane>
+                    <children>
+
+                        <BotaoGrupo
+                                fx:id="fase1"
+                                text="Fase 1"
+                                descricao="Descrição da Fase 1"
+                                onAction="#enviarInfos"
+                                prefWidth="170"/>
+
+                        <BotaoGrupo
+                                fx:id="fase2"
+                                text="Fase 2"
+                                descricao="Descrição da Fase 2"
+                                onAction="#enviarInfos"
+                                prefWidth="170"/>
+
+                        <BotaoGrupo
+                                fx:id="fase3"
+                                text="Fase 3"
+                                descricao="Descrição da Fase 3"
+                                onAction="#enviarInfos"
+                                prefWidth="170"/>
+                    </children>
+                </VBox>
+            </content>
+
+        </ScrollPane>
+    </left>
+
+    <!-- Painel da direita -->
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <children>
+
+                <Label text="Descrição:"
+                       style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+
+                <Label fx:id="descricao"
+                       wrapText="true"
+                       prefWidth="360"
+                       style="-fx-font-size:14px;"
+                       text="Selecione um grupo."/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <BotaoCena fx:id="bEntrar"
+                           text="ENTRAR"
+                           prefWidth="140"/>
+
+                <BotaoCena fx:id="bVoltar"
+                           text="VOLTAR"
+                           prefWidth="140"/>
+
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>

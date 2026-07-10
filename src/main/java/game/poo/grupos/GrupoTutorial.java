@@ -53,7 +53,7 @@ public class GrupoTutorial extends FaseMenuController {
 	public void initialize(URL location, ResourceBundle resources) {
 		definirBotoes();
 		definirFase(fase1, "/game/poo/fxml/Jogos/tutorial1.fxml");
-		definirFase(fase2, "/game/poo/fxml/Jogos/tutorial2.fxml");		
+		definirFase(fase2, "/game/poo/fxml/Jogos/tutorial2.fxml");
 	}
 
 }

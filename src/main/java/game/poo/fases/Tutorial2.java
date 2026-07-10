@@ -31,7 +31,6 @@ public class Tutorial2 extends FaseController{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
-		iniciarJogo(getFxmlJogo());
 		definirBotoes("/game/poo/fxml/Fases/grupoFase1.fxml");
 		descricao.setText("Você deve ter notado que na última fase não aconteceu nada, correto? Isso aconteceu porque ainda não escrevemos nenhuma instrução para o programa executar. Agora vamos mudar isso aprendendo um dos conceitos mais importantes da programação: as variáveis!"
 				+ "\nVariáveis são espaços utilizados pelo programa para armazenar informações. Elas podem guardar diferentes tipos de dados, como números inteiros (int), números decimais (float), letras (char), entre outros."
@@ -66,11 +65,12 @@ public class Tutorial2 extends FaseController{
 				if (Interpretador.verificarAbertura(linha)) break; 
 				linhaInicio++;
 			}
+			linhaInicio++;
 				
 			// Marca onde fica a linha do } do Main
 			if (Interpretador.verificarFechamento(linhas[linhas.length - 1])) linhaFinal = linhas.length - 1;
 			
-			Interpretador.adicionarVariavelInt(linhas[linhaInicio]);
+			Interpretador.adicionarVariavelInt(linhas[linhaInicio + 1]);
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText(e.getMessage());

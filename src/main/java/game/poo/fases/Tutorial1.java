@@ -31,7 +31,6 @@ public class Tutorial1 extends FaseController{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
-		iniciarJogo(getFxmlJogo());
 		definirBotoes("/game/poo/fxml/Fases/grupoFase1.fxml");
 		descricao.setText("Neste jogo, Nos queremos te ensiar como a linguagem C funciona de uma maneira divertida. Preparamos alguns desafios e tutoriais que vão ensinar os principais conceitos da linguagem."
 				+ ""
@@ -45,7 +44,7 @@ public class Tutorial1 extends FaseController{
 	
 	@Override
 	public void chamarInterpretador() {
-		String cod = codigo.getText();
+		String cod = codigo.getText(); 
 		
 		try {
 			int linhaMain = 0; // Linha que Abre o Main {
@@ -74,11 +73,6 @@ public class Tutorial1 extends FaseController{
 			alerta.setHeaderText(e.getMessage());
 			alerta.showAndWait();
 		}
-	}
-	
-	@Override // Colocar o caminho do fxml da Representacao 3D
-	public String getFxmlJogo() {
-		return "/game/poo/fxml/jogoModelo.fxml";
 	}
 }
 
