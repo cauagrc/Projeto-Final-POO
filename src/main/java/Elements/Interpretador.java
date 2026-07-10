@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seila.RegexCondicionais.FaseConfig;
-
 public abstract class Interpretador {
 	static HashMap<String, Integer> variaveisInt = new HashMap<String, Integer>();
 	static HashMap<String, Double> variaveisFloat = new HashMap<String, Double>();
