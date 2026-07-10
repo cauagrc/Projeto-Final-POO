@@ -1,10 +1,12 @@
-package Elements;
+package seila;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seila.RegexCondicionais.FaseConfig;
 
 public abstract class Interpretador {
 	static HashMap<String, Integer> variaveisInt = new HashMap<String, Integer>();
@@ -14,7 +16,31 @@ public abstract class Interpretador {
 
 	static final String[] palavras_reservadas = {"int", "float", "double", "char", "void", "if", "else", "while", "for", "return",
 	        "switch", "case", "break", "continue", "do", "default", "struct", "typedef", "const", "static", "sizeof"};
+	
+	//Regex de condicionais
+	 private static final String REGEX_IF_ELSE = 
+		        "^if\\s*\\((?<condicao>.*?)\\)\\s*\\{(?<blocoIf>.*?)\\}(?:\\s*else\\s*\\{(?<blocoElse>.*?)\\})?$";
+		    
+	 private static final Pattern PATTERN_ESTRUTURAL = Pattern.compile(REGEX_IF_ELSE, Pattern.DOTALL);
+	
+	 //Classe da fase de condicionais
+	 public static class FaseCond {
+		        int idFase;
+		        String comandoTela;
+		        String comandoIfObrigatorio;
+		        String comandoElseObrigatorio; 
+		        boolean exigeVariavelNaCondicao; 
 
+		        public FaseCond(int id, String comando, String cmdIf, String cmdElse, boolean exigeVar) {
+		            this.idFase = id;
+		            this.comandoTela = comando;
+		            this.comandoIfObrigatorio = cmdIf;
+		            this.comandoElseObrigatorio = cmdElse;
+		            this.exigeVariavelNaCondicao = exigeVar;
+		        }
+		    }
+	
+	 //-------------------------VERIFICAÇÕES----------------------------------------
 	
 	// Verificacao via Regex se existe uma funcao main() em qualquer lugar do codigo
 	public static int verificarMain(String codigo) throws IllegalArgumentException {
@@ -53,16 +79,7 @@ public abstract class Interpretador {
 		if (matcher.find()) return true;
 		return false;
 	}
-	// Limpar HashMap
-	public static void limparVariaveis() {
-		variaveisInt = new HashMap<String, Integer>();
-		variaveisFloat = new HashMap<String, Double>();
-		variaveisBool = new HashMap<String, Boolean>();
-		variaveisChar = new HashMap<String, Character>();
-		
-	}
 	
-	//
 	public static int verificarTipo(String tipo) {
 		switch(tipo) {
 			case "int":
@@ -77,6 +94,91 @@ public abstract class Interpretador {
 				return 0;
 		}
 	}
+	
+	//Verifica o código de condicionais
+	public static boolean verificarCodigoCondicionais(String codigoDoJogador, FaseCond faseAtual) {
+        if (codigoDoJogador == null || codigoDoJogador.trim().isEmpty()) {
+            return false;
+        }
+
+        Matcher matcher = PATTERN_ESTRUTURAL.matcher(codigoDoJogador.trim());
+
+        if (!matcher.matches()) {
+            System.out.println("Erro: Estrutura do if/else escrita incorretamente.");
+            return false;
+        }
+		
+        String condicaoEntreParenteses = matcher.group("condicao").trim();
+        String textoDentroDoIf = matcher.group("blocoIf").trim();
+        String textoDentroDoElse = matcher.group("blocoElse");
+
+        
+        ArrayList<String> listaTokens = tokenizarExpressao(condicaoEntreParenteses);
+        
+        // Validação da regra da fase (se exige variável na condição)
+        if (faseAtual.exigeVariavelNaCondicao) {
+            boolean encontrouVariavelValida = false;
+            for (String token : listaTokens) {
+                if (Interpretador.variaveisInt.containsKey(token) || 
+                    Interpretador.variaveisFloat.containsKey(token) || 
+                    Interpretador.variaveisChar.containsKey(token) || 
+                    Interpretador.variaveisBool.containsKey(token)) {
+                    encontrouVariavelValida = true;
+                    break;
+                }
+            }
+            if (!encontrouVariavelValida) {
+                System.out.println("Erro: Esta fase exige que você use pelo menos uma variável declarada na condição!");
+                return false;
+            }
+        }
+
+        boolean resultadoExpressao = false;
+
+
+        try {
+            // passa o ArrayList para o substituirVariavel() para trocar os nomes pelos valores reais
+            listaTokens = Interpretador.substituirVariavel(listaTokens);
+            
+            // passa o ArrayList atualizado para o calcularExpressaoLogica(), que retorna o booleano final
+            resultadoExpressao = Interpretador.calcularExpressaoLogica(listaTokens);
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro na análise da condição: " + e.getMessage());
+            return false;
+        }
+
+        // Validação dos blocos com base no resultado booleano obtido
+        if (resultadoExpressao) {
+            if (!textoDentroDoIf.contains(faseAtual.comandoIfObrigatorio)) {
+                System.out.println("Erro: Faltou executar o comando correto dentro do bloco 'if'.");
+                return false;
+            }
+            System.out.println("Condição VERDADEIRA: Bloco 'if' executado com sucesso!");
+        } else {
+            if (faseAtual.comandoElseObrigatorio != null) {
+                if (textoDentroDoElse == null) {
+                    System.out.println("Erro: A condição resultou em FALSE, mas você não adicionou o bloco 'else'.");
+                    return false;
+                }
+                if (!textoDentroDoElse.trim().contains(faseAtual.comandoElseObrigatorio)) {
+                    System.out.println("Erro: Faltou executar o comando correto dentro do bloco 'else'.");
+                    return false;
+                }
+                System.out.println("Condição FALSA: Bloco 'else' executado com sucesso!");
+            } else {
+                System.out.println("A condição do 'if' resultou em FALSE. Teste falhou.");
+                return false;
+            }
+        }
+
+        if (faseAtual.comandoElseObrigatorio == null && textoDentroDoElse != null) {
+            System.out.println("Erro: Remova o bloco 'else'. Esta etapa pede apenas uma estrutura de 'if' simples.");
+            return false;
+        }
+
+        return true; 
+    }
 
     public static boolean verificarNome(String nome) {
 
@@ -99,6 +201,8 @@ public abstract class Interpretador {
 		}
 	}
 
+	
+	//----------------------CALCULOS----------------------------------------
 	public static double calcular(ArrayList<String> lista) throws ArithmeticException, IllegalArgumentException{
 		// Primeiro resolve *, / e %
         for (int i = 1; i < lista.size() - 1;) {
@@ -347,47 +451,47 @@ public abstract class Interpretador {
 	}
 	
 	// Associa uma variavel Char ao seu valor
-	public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
-		String[] elementos = linha.split(linha);
+		public static void adicionarVariavelChar(String linha) throws IllegalArgumentException{
+			String[] elementos = linha.split(linha);
+			
+			if (elementos.length == 0) return;
+			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+			
+			
+			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+			
+			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+			
+			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+			
+			if (!elementos[3].matches("'[^']'")) throw new IllegalArgumentException("O tipo Char nao Aceita esse formato");
+		    
+			variaveisChar.put(elementos[1], elementos[3].charAt(1));
+		}
 		
-		if (elementos.length == 0) return;
-		if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
-		
-		
-		if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
-		
-		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
-		
-		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-		
-		if (!elementos[3].matches("'[^']'")) throw new IllegalArgumentException("O tipo Char nao Aceita esse formato");
-	    
-		variaveisChar.put(elementos[1], elementos[3].charAt(1));
-	}
-	
-	public static void adicionarVariavelBoolean(String linha) throws IllegalArgumentException{
-		String[] elementos = linha.split(linha);
-		
-		if (elementos.length == 0) return;
-		if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
-		
-		if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
-		
-		if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
-		
-		if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
-		
-		ArrayList<String> lista = new ArrayList<>();
-		for (int i = 3; i < elementos.length - 1; i++) {
-			lista.add(elementos[i]);
-		}   			
-		
-		lista = substituirVariavel(lista);
-		
-		boolean resultado = calcularExpressaoLogica(lista);
-		
-		variaveisChar.put(elementos[1], elementos[3].charAt(1));
-	}
+		public static void adicionarVariavelBoolean(String linha) throws IllegalArgumentException{
+			String[] elementos = linha.split(linha);
+			
+			if (elementos.length == 0) return;
+			if (elementos.length != 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
+			
+			if (verificarTipo(elementos[0]) != 3) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");
+			
+			if (!verificarNome(elementos[1])) throw new  IllegalArgumentException("Nome de Variavel Invalido!");
+			
+			if (!elementos[2].equals("=")) throw new  IllegalArgumentException("Operador Incorreto!");
+			
+			ArrayList<String> lista = new ArrayList<>();
+			for (int i = 3; i < elementos.length - 1; i++) {
+				lista.add(elementos[i]);
+			}   			
+			
+			lista = substituirVariavel(lista);
+			
+			boolean resultado = calcularExpressaoLogica(lista);
+			
+			variaveisChar.put(elementos[1], elementos[3].charAt(1));
+		}
 	
 	// Operaccao Solo ++ e -- e !
 	
@@ -458,4 +562,27 @@ public abstract class Interpretador {
 		
 		return 0;
 	}
+	
+	 private static ArrayList<String> tokenizarExpressao(String expressao) {
+	        ArrayList<String> tokens = new ArrayList<>();
+	        
+	        // Captura operadores compostos primeiro, depois simples, números e palavras 
+	        Pattern p = Pattern.compile("==|!=|>=|<=|&&|\\|\\||[<>+\\-*/%=!]|[a-zA-Z_][a-zA-Z0-9_]*|\\d+");
+	        Matcher m = p.matcher(expressao);
+	        
+	        while (m.find()) {
+	            tokens.add(m.group());
+	        }
+	        
+	        return tokens;
+	    }
+	 
+	   // Limpar HashMap
+		public static void limparVariaveis() {
+			variaveisInt = new HashMap<String, Integer>();
+			variaveisFloat = new HashMap<String, Double>();
+			variaveisBool = new HashMap<String, Boolean>();
+			variaveisChar = new HashMap<String, Character>();
+			
+		}
 }
