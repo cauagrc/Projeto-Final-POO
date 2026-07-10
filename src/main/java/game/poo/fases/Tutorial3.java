@@ -25,21 +25,21 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Tutorial2 extends FaseController{
+public class Tutorial3 extends FaseController{
 	@FXML
 	Label descricao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 		definirBotoes("/game/poo/fxml/Fases/grupoFase1.fxml");
-		descricao.setText("Você deve ter notado que na última fase não aconteceu nada, correto? Isso aconteceu porque ainda não escrevemos nenhuma instrução para o programa executar. Agora vamos mudar isso aprendendo um dos conceitos mais importantes da programação: as variáveis!"
-				+ "\nVariáveis são espaços utilizados pelo programa para armazenar informações. Elas podem guardar diferentes tipos de dados, como números inteiros (int), números decimais (float), letras (char), entre outros."
-				+ "\nToda variável possui um nome, e é através dele que podemos acessar ou modificar o valor que ela armazena sempre que precisarmos. Vamos começar com números e criar uma variável que armazenará um valor inteiro!"
-				+ "\nPara isso, siga esta estrutura:"
-				+ "\n\nint numero = 10;"
-				+ "\n\nNesse exemplo, criamos uma variável chamada numero e armazenamos o valor 10 dentro dela."
-				+ "\nVocê pode escolher diferentes nomes para suas variáveis, mas lembre-se que o nome deve seguir algumas regras da linguagem C (logo mais explicaremos)."
-				+ "\nAgora tente criar sua primeira variável dentro das chaves {} da função principal! Não esqueça de colocar ';' sempre no final da linha!");
+		descricao.setText("Você declarou sua primeira variável, mas ainda falta um pouco de prática, é interessante entender algumas regras antes:\n"
+				+ "1 - nome de variáveis não podem começar com caracteres especiais (#. ?, !, etc)\n"
+				+ "2 - nome de variáveis não podem começar com números (1nome, 34pedro, 2.3var, etc)\n"
+				+ "3 - os únicos caracteres especiais que o nome da sua variável pode ter são  o '-' e '_'\n"
+				+ "4 - existem palavras reservadas na linguagem C, por exemplo o 'int', 'float', 'main' e etc, não se pode usa-las para nada além de suas funções pré-estabelecidas, caso queira saber quais são as outras, pesquise na internet\n"
+				+ "5 - existem diferença entre letras minúsculas e maiúsculas, ou seja, se você cria a variável de nome martelo e outra com nome Martelo, elas não serão a mesma variável\n"
+				+ "\n"
+				+ "Agora que você sabe as regras, você pode usar o espaço ao lado para testar os erros, para completar essa fase escreva 2 variáveis do tipo inteiro, igual você fez na anterior");
 	}
 	
 	@Override
@@ -55,7 +55,7 @@ public class Tutorial2 extends FaseController{
 				
 			// Verificando se Existe o Main e apenas 1 unico Main
 			if (Interpretador.verificarMain(cod) == 1) throw new IllegalArgumentException("A sua Funcao Principal nao foi Encontrada ou Esta Mal Declarada!");
-			//else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
+			else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
 			
 			// Verifica se a Quantidade de {} esta correta
 			Interpretador.verificarChaves(linhas);
@@ -70,6 +70,7 @@ public class Tutorial2 extends FaseController{
 			// Marca onde fica a linha do } do Main
 			if (Interpretador.verificarFechamento(linhas[linhas.length - 1])) linhaFinal = linhas.length - 1;
 			
+			Interpretador.adicionarVariavelInt(linhas[linhaInicio]);
 			Interpretador.adicionarVariavelInt(linhas[linhaInicio + 1]);
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");

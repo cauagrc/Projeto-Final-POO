@@ -25,21 +25,18 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Tutorial2 extends FaseController{
+public class Tutorial5 extends FaseController{
 	@FXML
 	Label descricao;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 		definirBotoes("/game/poo/fxml/Fases/grupoFase1.fxml");
-		descricao.setText("Você deve ter notado que na última fase não aconteceu nada, correto? Isso aconteceu porque ainda não escrevemos nenhuma instrução para o programa executar. Agora vamos mudar isso aprendendo um dos conceitos mais importantes da programação: as variáveis!"
-				+ "\nVariáveis são espaços utilizados pelo programa para armazenar informações. Elas podem guardar diferentes tipos de dados, como números inteiros (int), números decimais (float), letras (char), entre outros."
-				+ "\nToda variável possui um nome, e é através dele que podemos acessar ou modificar o valor que ela armazena sempre que precisarmos. Vamos começar com números e criar uma variável que armazenará um valor inteiro!"
-				+ "\nPara isso, siga esta estrutura:"
-				+ "\n\nint numero = 10;"
-				+ "\n\nNesse exemplo, criamos uma variável chamada numero e armazenamos o valor 10 dentro dela."
-				+ "\nVocê pode escolher diferentes nomes para suas variáveis, mas lembre-se que o nome deve seguir algumas regras da linguagem C (logo mais explicaremos)."
-				+ "\nAgora tente criar sua primeira variável dentro das chaves {} da função principal! Não esqueça de colocar ';' sempre no final da linha!");
+		descricao.setText("Aprendemos os tipos numéricos, mas ainda falta algo importante, os caracteres, caracteres são qualquer todos os símbolos que você pode representar no seu teclado, desde letras até sinais de pontuação, operadores matemáticos etc. O importante é entender como o C entende eles, sempre que tiver que definir um caracter lembre que eles ficam entre aspas simples (''), por exemplo: 'a', '#', '3', se fizer isso nunca terá problemas com a interpretação. Nunca coloca mais de um único caracter, isso não é aceito pelo C.\n"
+				+ "\n"
+				+ "Agora que você já sabe que podemos guardar caracteres, tente guardar também, o tipo do caracter é o char\n"
+				+ "\n"
+				+ "char nome = 'c';");
 	}
 	
 	@Override
@@ -55,7 +52,7 @@ public class Tutorial2 extends FaseController{
 				
 			// Verificando se Existe o Main e apenas 1 unico Main
 			if (Interpretador.verificarMain(cod) == 1) throw new IllegalArgumentException("A sua Funcao Principal nao foi Encontrada ou Esta Mal Declarada!");
-			//else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
+			else if (Interpretador.verificarMain(cod) == 2) throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
 			
 			// Verifica se a Quantidade de {} esta correta
 			Interpretador.verificarChaves(linhas);
@@ -70,7 +67,7 @@ public class Tutorial2 extends FaseController{
 			// Marca onde fica a linha do } do Main
 			if (Interpretador.verificarFechamento(linhas[linhas.length - 1])) linhaFinal = linhas.length - 1;
 			
-			Interpretador.adicionarVariavelInt(linhas[linhaInicio + 1]);
+			Interpretador.adicionarVariavelChar(linhas[linhaInicio]);
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText(e.getMessage());
