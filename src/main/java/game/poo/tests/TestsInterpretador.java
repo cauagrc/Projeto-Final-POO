@@ -40,6 +40,14 @@ public class TestsInterpretador {
 		System.out.println(Interpretador.verificarScanf("scanf(\"%c\", &letra);"));
 
 		System.out.println(Interpretador.verificarScanf("scanf(\"%f\", &idade);"));
+		
+		System.out.println(Interpretador.verificarPrintf("printf(\"%d\", idade);"));
+
+		System.out.println(Interpretador.verificarPrintf("printf(\"%f\", altura);"));
+
+		System.out.println(Interpretador.verificarPrintf("printf(\"%c\", letra);"));
+
+		System.out.println(Interpretador.verificarPrintf("printf(\"%f\", idade);"));
 	}
 
 }

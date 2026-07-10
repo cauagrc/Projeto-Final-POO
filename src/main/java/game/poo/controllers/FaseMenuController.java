@@ -50,20 +50,20 @@ public abstract class FaseMenuController implements Initializable {
 	protected void definirFase(BotaoGrupo fase, String fxmlFase) {
 		// Definindo cena de cada fase
 		try {
-		fase.setCena(fxmlFase); // Definir Fases
-		}catch(IOException e) {
+			fase.setCena(fxmlFase); // Definir Fases
+		} catch(IOException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText("Houve um erro ao Carregar as Cenas, Por Favor Reinicie");
 			alerta.showAndWait();
 		}
-		
 	}
+	
 	protected void definirBotoes() {
 		// Chamada do metodo de troca de cena ao clicar
 		bEntrar.setOnAction(event -> {
 			try {
 				bEntrar.mudarPara(proxCena);
-			}catch(IllegalArgumentException e) {
+			} catch(IllegalArgumentException e) {
 				alerta.setTitle("FALTA DE INFORMACAO");
 				alerta.setHeaderText("Por favor Selecione uma Fase");
 				alerta.showAndWait();

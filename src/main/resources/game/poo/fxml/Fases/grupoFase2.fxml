@@ -10,13 +10,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="474.0"
-            prefWidth="637.0"
-			stylesheets="/game/poo/styles/menuStyle2.css"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="game.poo.grupos.GrupoTutorial2">
-
+<BorderPane prefHeight="474.0" prefWidth="637.0" stylesheets="/game/poo/styles/menuStyle2.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.grupos.GrupoVariaveis">
     <!-- Lista de fases -->
     <left>
         <ScrollPane fitToWidth="true"
@@ -30,27 +24,14 @@
                     </padding>
 
                     <children>
-
-                        <BotaoGrupo
-                                fx:id="fase1"
-                                text="Fase 1"
-                                descricao="Descrição da Fase 1"
-                                onAction="#enviarInfos"
-                                prefWidth="170"/>
-
-                        <BotaoGrupo
-                                fx:id="fase2"
-                                text="Fase 2"
-                                descricao="Descrição da Fase 2"
-                                onAction="#enviarInfos"
-                                prefWidth="170"/>
-
-                        <BotaoGrupo
-                                fx:id="fase3"
-                                text="Fase 3"
-                                descricao="Descrição da Fase 3"
-                                onAction="#enviarInfos"
-                                prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase1" text="Fase 1" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase2" text="Fase 2" descricao="Descrição da Fase 2" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase3" text="Fase 3" descricao="Descrição da Fase 3" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase4" text="Fase 4" descricao="Descrição da Fase 4" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase5" text="Fase 5" descricao="Descrição da Fase 5" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase6" text="Fase 6" descricao="Descrição da Fase 6" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase7" text="Fase 7" descricao="Descrição da Fase 7" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase8" text="Fase 8" descricao="Descrição da Fase 8" onAction="#enviarInfos" prefWidth="170"/>
                     </children>
                 </VBox>
             </content>

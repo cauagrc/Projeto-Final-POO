@@ -42,8 +42,10 @@ public abstract class Interpretador {
 	
 	// Verificacao via Regex se existe uma funcao main() em qualquer lugar do codigo
 	public static int verificarMain(String codigo) throws IllegalArgumentException {
-		Pattern pattern = Pattern.compile("int\\s+main\\s*\\(\\s*\\)\\s*\\{[\\s\\S]*?\\}\\s*");
+		Pattern pattern = Pattern.compile("(?m)^\\s*int\\s+main\\s*\\(\\s*\\)\\s*\\{");
+		
 		Matcher matcher = pattern.matcher(codigo);
+		
 		if (!matcher.find()) return 1; //throw new IllegalArgumentException("A sua Funcao Principal nao foi Encontrada ou Esta Mal Declarada!");
 		else if (matcher.find()) return 2; //throw new IllegalArgumentException("Houve mais de uma declaracao de main no seu codigo! Apenas um main() eh Permitido");
 		return 0;
@@ -653,7 +655,6 @@ public abstract class Interpretador {
 
 		if (!verificarNome(nomeVariavel)) return 0; //Caso o nome da variavel seja invalida
 
-		System.out.println(variaveisInt.containsKey(nomeVariavel));
 		if (!verificarCompatibilidade(especificador, nomeVariavel)) return 0; //Caso o especificador nao seja do mesmo tipo da variavel
 
 		return 1;
