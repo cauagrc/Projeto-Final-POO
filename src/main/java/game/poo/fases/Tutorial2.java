@@ -2,11 +2,13 @@ package game.poo.fases;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import Elements.BotaoCena;
 import Elements.BotaoGrupo;
 import Elements.Interpretador;
+import game.cg.RoboAnimViewer;
 import game.poo.controllers.FaseController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -43,7 +45,7 @@ public class Tutorial2 extends FaseController{
 	}
 	
 	@Override
-	public void chamarInterpretador() {
+	public void chamarInterpretador() {        
 		String cod = codigo.getText();
 		
 		try {
@@ -70,14 +72,43 @@ public class Tutorial2 extends FaseController{
 			// Marca onde fica a linha do } do Main
 			if (Interpretador.verificarFechamento(linhas[linhas.length - 1])) linhaFinal = linhas.length - 1;
 			
-			Interpretador.adicionarVariavelInt(linhas[linhaInicio + 1]);
+			Interpretador.adicionarVariavelInt(linhas[linhaInicio]);
 			
-			System.out.println("Concluido");
+			String variavel = Interpretador.removerPontoVirgula(linhas[linhaInicio].split(" ")[3]);
+			
+			// Cada exemplo roda numa CENA LIMPA (o RoboAnimViewer recria o
+	        // contexto C++ antes de cada um), entao todos comecam com a
+	        // esteira IN cheia, na ordem: int=42, float=3.14, char='A',
+	        // bool=true (ver domain::SceneGraph::build()). FETCH_INPUT sempre
+	        // retira o PROXIMO disponivel (FIFO).
+
+	        // Exemplo 1: fluxo basico - cria uma variavel, pega a 1a entrada
+	        // (int=42), armazena e envia para a saida.
+	        String script1 =
+	        	"SET_INPUT int " + variavel + "\n" +
+	            "CREATE_VAR resultado int\n" +
+	            "FETCH_INPUT r0\n" +
+	            "STORE resultado r0\n";
+	        
+	        List<RoboAnimViewer.Example> exemplos = List.of(
+	            new RoboAnimViewer.Example("Fluxo basico: entrada -> armazena -> saida", script1)
+	        );
+
+	        // Instancia a janela de visualizacao, ja com os 3 exemplos em fila
+	        RoboAnimViewer viewer = new RoboAnimViewer(exemplos, 800, 600);
+
+	        // Exibe a janela
+	        viewer.show();
+	        
+			alerta.setTitle("SUCESSO");
+			alerta.setHeaderText("Desafio concluido.");
+			alerta.showAndWait();
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText(e.getMessage());
 			alerta.showAndWait();
 		}
+		
 	}
 }
 

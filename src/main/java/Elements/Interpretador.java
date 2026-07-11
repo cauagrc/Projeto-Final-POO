@@ -210,7 +210,7 @@ public abstract class Interpretador {
     	return true;
     }
     
-    private static String removerPontoVirgula(String elemento) {
+    public static String removerPontoVirgula(String elemento) {
     	elemento = elemento.substring(0, elemento.length() - 1);
     	return elemento;
     }
@@ -424,6 +424,7 @@ public abstract class Interpretador {
 		ArrayList<String> lista = new ArrayList<>();
 		
 		if (elementos.length == 0) return;
+		
 		if (elementos.length < 4) throw new  IllegalArgumentException("Declaracao de Variavel incorreta!");
 		
 		if (verificarTipo(elementos[0]) != 1) throw new  IllegalArgumentException("Tipo incorreto de Variavel!");

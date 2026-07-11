@@ -9,33 +9,80 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.fases.Variaveis2" stylesheets="/game/poo/styles/codigo.css" fx:id="root" prefHeight="474.0" prefWidth="637.0" style="-fx-background-color: #f0f0f0; -fx-padding: 15;" hgap="15" vgap="5" >
-	<!-- Proporção das colunas -->
-	<columnConstraints>
-		<ColumnConstraints percentWidth="55" />
-		<ColumnConstraints percentWidth="45" />
-	</columnConstraints>
+<GridPane xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="game.poo.fases.Variaveis2"
+          stylesheets="/game/poo/styles/codigo.css"
+          fx:id="root"
+          prefHeight="474.0"
+          prefWidth="637.0"
+          style="-fx-background-color: #f0f0f0; -fx-padding: 15;"
+          hgap="15"
+          vgap="5">
 
-	<!-- Proporção das linhas -->
-	<rowConstraints>
-		<RowConstraints percentHeight="8" />
-		<RowConstraints percentHeight="80" />
-		<RowConstraints percentHeight="12" />
-	</rowConstraints>
+    <!-- Proporção das colunas -->
+    <columnConstraints>
+        <ColumnConstraints percentWidth="55"/>
+        <ColumnConstraints percentWidth="45"/>
+    </columnConstraints>
 
-	<children> <Label text="Descrição:" style="-fx-font-size: 16px; -fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+    <!-- Proporção das linhas -->
+    <rowConstraints>
+        <RowConstraints percentHeight="8"/>
+        <RowConstraints percentHeight="80"/>
+        <RowConstraints percentHeight="12"/>
+    </rowConstraints>
 
-		<!-- Área da descrição --> <!-- Título da descrição -->
-		<Label fx:id="descricao" text="" wrapText="true" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+    <children>
 
-		<!-- Área de código -->
-		<TextArea fx:id="codigo" promptText="Digite seu código aqui..." wrapText="false" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+        <!-- Título da descrição -->
+        <Label text="Descrição:"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="0"
+               GridPane.halignment="LEFT"
+               GridPane.valignment="BOTTOM"/>
 
-		<!-- Barra inferior -->
-		<HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
-			<BotaoCena fx:id="bVoltar" text="VOLTAR" prefWidth="120" prefHeight="35" />
+        <!-- Área da descrição -->
+        <Label fx:id="descricao"
+               text=""
+               wrapText="true"
+               maxWidth="Infinity"
+               maxHeight="Infinity"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="1"
+               GridPane.halignment="LEFT"
+               GridPane.valignment="TOP"/>
 
-			<Button fx:id="bComecar" text="COMEÇAR" prefWidth="120" prefHeight="35" />
-		</HBox>
-	</children>
+        <!-- Área de código -->
+        <TextArea fx:id="codigo"
+                  promptText="Digite seu código aqui..."
+                  wrapText="false"
+                  maxWidth="Infinity"
+                  maxHeight="Infinity"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="0"
+                  GridPane.rowSpan="2"
+                  />
+
+        <!-- Barra inferior -->
+        <HBox spacing="10"
+              alignment="CENTER_RIGHT"
+              GridPane.columnIndex="0"
+              GridPane.rowIndex="2"
+              GridPane.columnSpan="2">
+
+            <BotaoCena fx:id="bVoltar"
+                       text="VOLTAR"
+                       prefWidth="120"
+                       prefHeight="35"/>
+
+            <Button fx:id="bComecar"
+                    text="COMEÇAR"
+                    prefWidth="120"
+                    prefHeight="35"
+                    />
+
+        </HBox>
+
+    </children>
 </GridPane>

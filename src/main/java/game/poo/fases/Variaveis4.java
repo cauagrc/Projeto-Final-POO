@@ -1,9 +1,11 @@
 package game.poo.fases;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import Elements.Interpretador;
+import game.cg.RoboAnimViewer;
 import game.poo.controllers.FaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -36,6 +38,7 @@ public class Variaveis4 extends FaseController {
 			boolean entradaConcluida = false;
 			boolean saidaConcluida = false;
 			boolean returnEncontrado = false;
+			String variavel = "";
 
 			Interpretador.limparVariaveis();
 
@@ -79,6 +82,7 @@ public class Variaveis4 extends FaseController {
 				if (linha.startsWith("float ")) {
 					try {
 						Interpretador.adicionarVariavelFloat(linha);
+						variavel = Interpretador.removerPontoVirgula(linha.split(" ")[3]);
 					} catch (IllegalArgumentException e) {
 						throw new IllegalArgumentException("Linha " + (i + 1) + ": " + e.getMessage());
 					}
@@ -134,6 +138,27 @@ public class Variaveis4 extends FaseController {
 
 			if (!saidaConcluida) throw new IllegalArgumentException("Imprima o valor armazenado na variavel sensor.");
 
+			
+			String script1 =
+		        	"SET_INPUT int " + variavel + "\n" +
+		            "CREATE_VAR resultado int\n" +
+		            "FETCH_INPUT r0\n" +
+		            "STORE resultado r0\n" +
+		            "SET_INPUT int " + 43.3 + "\n" +
+		            "FETCH_INPUT r0\n" +
+		            "STORE resultado r0\n" +
+		            "SEND_OUTPUT resultado\n";
+		        
+		        List<RoboAnimViewer.Example> exemplos = List.of(
+		            new RoboAnimViewer.Example("Fluxo basico: entrada -> armazena -> saida", script1)
+		        );
+
+		        // Instancia a janela de visualizacao, ja com os 3 exemplos em fila
+		        RoboAnimViewer viewer = new RoboAnimViewer(exemplos, 800, 600);
+
+		        // Exibe a janela
+		        viewer.show();
+			
 			alerta.setTitle("SUCESSO");
 			alerta.setHeaderText("Desafio concluido.");
 			alerta.showAndWait();
@@ -143,6 +168,7 @@ public class Variaveis4 extends FaseController {
 			alerta.setHeaderText(e.getMessage());
 			alerta.showAndWait();
 		}
+
 	}
 	
 }

@@ -44,8 +44,12 @@
 
         <configuration>
           <mainClass>game.poo.Main</mainClass>
+          <options>
+            <option>-Djava.library.path=${project.basedir}/libs</option>
+        </options>
         </configuration>
       </plugin>
+      
     </plugins>
   </build>
 </project>
