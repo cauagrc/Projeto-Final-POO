@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.fases.Variaveis1" stylesheets="/game/poo/styles/codigo.css" fx:id="root" prefHeight="474.0" prefWidth="637.0" style="-fx-background-color: #f0f0f0; -fx-padding: 15;" hgap="15" vgap="5" >
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.fases.Operadores1" stylesheets="/game/poo/styles/codigo.css" fx:id="root" prefHeight="474.0" prefWidth="637.0" style="-fx-background-color: #f0f0f0; -fx-padding: 15;" hgap="15" vgap="5" >
 	<!-- Proporção das colunas -->
 	<columnConstraints>
 		<ColumnConstraints percentWidth="55" />

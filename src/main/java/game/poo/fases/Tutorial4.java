@@ -78,6 +78,8 @@ public class Tutorial4 extends FaseController{
 			if (Interpretador.verificarFechamento(linhas[linhas.length - 1])) linhaFinal = linhas.length - 1;
 			
 			Interpretador.adicionarVariavelFloat(linhas[linhaInicio]);
+			
+			System.out.println("Concluido");
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText(e.getMessage());

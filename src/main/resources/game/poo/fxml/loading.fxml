@@ -12,7 +12,7 @@
    <top>
       <StackPane prefHeight="70.0" prefWidth="775.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" text="PROJETO FINAL POO " />
+            <Label alignment="CENTER" text="PROGTRON" />
          </children>
       </StackPane>
    </top>
