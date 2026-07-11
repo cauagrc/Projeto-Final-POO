@@ -1,5 +1,13 @@
 # Projeto de Programação Orientada a Objetos
 
+## 📺 Vídeo de instalação
+
+Caso prefira, você pode acompanhar todo o processo de instalação através do vídeo abaixo:
+
+**YouTube:** https://youtu.be/AlDXS4Qw-UY
+
+---
+
 ## Configuração do Ambiente
 
 Antes de executar o projeto, é necessário instalar algumas dependências e compilar a biblioteca gráfica utilizada.
