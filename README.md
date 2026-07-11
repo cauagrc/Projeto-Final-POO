@@ -1,5 +1,13 @@
 # Projeto de Programação Orientada a Objetos
 
+## 📺 Vídeo de demonstração
+
+Caso prefira, você pode acompanhar todo o processo de instalação através do vídeo abaixo:
+
+**YouTube:** https://youtu.be/IQQOm2Efdlk
+
+---
+
 ## 📺 Vídeo de instalação
 
 Caso prefira, você pode acompanhar todo o processo de instalação através do vídeo abaixo:
