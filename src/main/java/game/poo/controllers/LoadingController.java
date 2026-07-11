@@ -2,8 +2,10 @@ package game.poo.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import game.cg.RoboAnimViewer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,6 +39,7 @@ public class LoadingController implements Initializable {
 					e.printStackTrace();
 				}
 			}
+			
 		});
 	}
 	
