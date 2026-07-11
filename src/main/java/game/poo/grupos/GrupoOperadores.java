@@ -16,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
-public class GrupoTutorial2 extends FaseMenuController {	
+public class GrupoOperadores extends FaseMenuController {	
 	
 	// Botoes de Destino
 	@FXML
@@ -30,7 +30,10 @@ public class GrupoTutorial2 extends FaseMenuController {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		definirBotoes();
+		definirFase(fase1, "/game/poo/fxml/Jogos/operadores1.fxml");
+		definirFase(fase2, "/game/poo/fxml/Jogos/operadores2.fxml");
+		definirFase(fase3, "/game/poo/fxml/Jogos/operadores3.fxml");
 	}
 
 }

@@ -24,14 +24,16 @@
                     </padding>
 
                     <children>
+                    
                         <BotaoGrupo fx:id="fase1" text="Fase 1" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
-                        <BotaoGrupo fx:id="fase2" text="Fase 2" descricao="Descrição da Fase 2" onAction="#enviarInfos" prefWidth="170"/>
-                        <BotaoGrupo fx:id="fase3" text="Fase 3" descricao="Descrição da Fase 3" onAction="#enviarInfos" prefWidth="170"/>
-                        <BotaoGrupo fx:id="fase4" text="Fase 4" descricao="Descrição da Fase 4" onAction="#enviarInfos" prefWidth="170"/>
-                        <BotaoGrupo fx:id="fase5" text="Fase 5" descricao="Descrição da Fase 5" onAction="#enviarInfos" prefWidth="170"/>
-                        <BotaoGrupo fx:id="fase6" text="Fase 6" descricao="Descrição da Fase 6" onAction="#enviarInfos" prefWidth="170"/>
-                        <BotaoGrupo fx:id="fase7" text="Fase 7" descricao="Descrição da Fase 7" onAction="#enviarInfos" prefWidth="170"/>
-                        <BotaoGrupo fx:id="fase8" text="Fase 8" descricao="Descrição da Fase 8" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase2" text="Fase 2" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase3" text="Fase 3" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase4" text="Fase 4" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase5" text="Fase 5" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase6" text="Fase 6" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase7" text="Fase 7" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+                        <BotaoGrupo fx:id="fase8" text="Fase 8" descricao="Descrição da Fase 1" onAction="#enviarInfos" prefWidth="170"/>
+
                     </children>
                 </VBox>
             </content>

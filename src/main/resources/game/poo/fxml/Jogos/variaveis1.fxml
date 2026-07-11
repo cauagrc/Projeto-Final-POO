@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-
 <GridPane xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="game.poo.fases.Variaveis1"
           stylesheets="/game/poo/styles/codigo.css"
@@ -85,5 +84,4 @@
         </HBox>
 
     </children>
-
 </GridPane>

@@ -61,8 +61,7 @@
                   maxHeight="Infinity"
                   GridPane.columnIndex="1"
                   GridPane.rowIndex="0"
-                  GridPane.rowSpan="2"
-                  />
+                  GridPane.rowSpan="2"/>
 
         <!-- Barra inferior -->
         <HBox spacing="10"
@@ -79,8 +78,7 @@
             <Button fx:id="bComecar"
                     text="COMEÇAR"
                     prefWidth="120"
-                    prefHeight="35"
-                    />
+                    prefHeight="35"/>
 
         </HBox>
 

@@ -15,7 +15,7 @@
 			stylesheets="/game/poo/styles/menuStyle2.css"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="game.poo.grupos.GrupoTutorial2">
+            fx:controller="game.poo.grupos.GrupoCondicionais">
 
     <!-- Lista de fases -->
     <left>
