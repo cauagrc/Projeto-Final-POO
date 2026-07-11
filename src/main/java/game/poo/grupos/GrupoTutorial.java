@@ -58,6 +58,8 @@ public class GrupoTutorial extends FaseMenuController {
 		definirFase(fase4, "/game/poo/fxml/Jogos/tutorial4.fxml");
 		definirFase(fase5, "/game/poo/fxml/Jogos/tutorial5.fxml");
 		definirFase(fase6, "/game/poo/fxml/Jogos/tutorial6.fxml");
+		definirFase(fase7, "/game/poo/fxml/Jogos/tutorial7.fxml");
+		definirFase(fase8, "/game/poo/fxml/Jogos/tutorial8.fxml");
 	}
 
 }

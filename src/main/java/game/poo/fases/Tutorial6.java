@@ -77,6 +77,8 @@ public class Tutorial6 extends FaseController{
 			}catch(Exception e) {
 				Interpretador.adicionarVariavelFloat(linhas[linhaInicio]);	
 			}
+			
+			System.out.println("Concluido");
 		}catch(IllegalArgumentException e) {
 			alerta.setTitle("ERRO");
 			alerta.setHeaderText(e.getMessage());
