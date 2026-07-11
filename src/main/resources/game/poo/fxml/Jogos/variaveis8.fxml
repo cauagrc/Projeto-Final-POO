@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.fases.Variaveis8" stylesheets="/game/poo/styles/codigo.css" fx:id="root" prefHeight="474.0" prefWidth="637.0" style="-fx-background-color: #f0f0f0; -fx-padding: 15;" hgap="15" vgap="5">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.poo.fases.Variaveis8" stylesheets="/game/poo/styles/codigo.css" fx:id="root" prefHeight="474.0" prefWidth="637.0" style="-fx-background-color: #f0f0f0; -fx-padding: 15;" hgap="15" vgap="5" >
 	<!-- Proporção das colunas -->
 	<columnConstraints>
 		<ColumnConstraints percentWidth="55" />
@@ -26,16 +26,16 @@
 	<children> <Label text="Descrição:" style="-fx-font-size: 16px; -fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
 
 		<!-- Área da descrição --> <!-- Título da descrição -->
-		<Label fx:id="descricao" text="" wrapText="true" maxWidth="Infinity" maxHeight="Infinity" style=" -fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #2196F3; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 12;" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+		<Label fx:id="descricao" text="" wrapText="true" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
 
 		<!-- Área de código -->
-		<TextArea fx:id="codigo" promptText="Digite seu código aqui..." wrapText="false" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" style="-fx-font-size: 16px; -fx-font-family: 'Consolas', 'Monaco', 'Courier New', monospace; -fx-control-inner-background: #252526; -fx-text-fill: #ffffff; -fx-prompt-text-fill: #888888; -fx-highlight-fill: #264f78; -fx-highlight-text-fill: #ffffff; -fx-padding: 12; -fx-border-color: #555555; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;" />
+		<TextArea fx:id="codigo" promptText="Digite seu código aqui..." wrapText="false" maxWidth="Infinity" maxHeight="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" />
 
 		<!-- Barra inferior -->
 		<HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
 			<BotaoCena fx:id="bVoltar" text="VOLTAR" prefWidth="120" prefHeight="35" />
 
-			<Button fx:id="bComecar" text="COMEÇAR" prefWidth="120" prefHeight="35" style=" -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" />
+			<Button fx:id="bComecar" text="COMEÇAR" prefWidth="120" prefHeight="35" />
 		</HBox>
 	</children>
 </GridPane>

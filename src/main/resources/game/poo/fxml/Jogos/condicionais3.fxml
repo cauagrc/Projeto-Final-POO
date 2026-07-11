@@ -11,6 +11,7 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="game.poo.fases.Condicionais3"
+          stylesheets="/game/poo/styles/codigo.css"
           fx:id="root"
           prefHeight="474.0"
           prefWidth="637.0"
@@ -47,15 +48,6 @@
                wrapText="true"
                maxWidth="Infinity"
                maxHeight="Infinity"
-               style="
-                    -fx-font-size: 14px;
-                    -fx-background-color: white;
-                    -fx-border-color: #2196F3;
-                    -fx-border-width: 2;
-                    -fx-border-radius: 5;
-                    -fx-background-radius: 5;
-                    -fx-padding: 12;
-               "
                GridPane.columnIndex="0"
                GridPane.rowIndex="1"
                GridPane.halignment="LEFT"
@@ -69,21 +61,7 @@
                   maxHeight="Infinity"
                   GridPane.columnIndex="1"
                   GridPane.rowIndex="0"
-                  GridPane.rowSpan="2"
-                  style="
-                      -fx-font-size: 16px;
-                      -fx-font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-                      -fx-control-inner-background: #252526;
-                      -fx-text-fill: #ffffff;
-                      -fx-prompt-text-fill: #888888;
-                      -fx-highlight-fill: #264f78;
-                      -fx-highlight-text-fill: #ffffff;
-                      -fx-padding: 12;
-                      -fx-border-color: #555555;
-                      -fx-border-width: 1;
-                      -fx-border-radius: 5;
-                      -fx-background-radius: 5;
-                  "/>
+                  GridPane.rowSpan="2"/>
 
         <!-- Barra inferior -->
         <HBox spacing="10"
@@ -100,12 +78,7 @@
             <Button fx:id="bComecar"
                     text="COMEÇAR"
                     prefWidth="120"
-                    prefHeight="35"
-                    style="
-                        -fx-background-color: #4CAF50;
-                        -fx-text-fill: white;
-                        -fx-font-weight: bold;
-                    "/>
+                    prefHeight="35"/>
 
         </HBox>
 
